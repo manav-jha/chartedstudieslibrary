@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chartered Studies Library - Premium Study Space for CA, CS, CMA & UPSC Aspirants</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Chartered Studies Library - Premium Study Space for CA, CS, CMA &amp; UPSC Aspirants</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
@@ -1130,6 +1128,7 @@
         }
 
         
+        
 
         @media (max-width: 768px) {
             .nav-links {
@@ -1196,6 +1195,188 @@
                 min-width: 280px;
             }
         }
+
+        /* ===== Branch Selection Modal ===== */
+        .branch-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .branch-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .branch-modal {
+            background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 24px;
+            padding: 2.5rem;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.85) translateY(20px);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(13, 148, 136, 0.1);
+            position: relative;
+        }
+
+        .branch-modal-overlay.active .branch-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .branch-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .branch-modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .branch-modal-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--teal-500), var(--teal-400));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+        }
+
+        .branch-modal-icon i {
+            width: 28px;
+            height: 28px;
+            color: #fff;
+        }
+
+        .branch-modal h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .branch-modal p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .branch-modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .branch-modal-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .branch-modal-btn:hover {
+            background: rgba(45, 212, 191, 0.08);
+            border-color: rgba(45, 212, 191, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(13, 148, 136, 0.15);
+        }
+
+        .branch-modal-btn-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .branch-modal-btn-icon.mumbai {
+            background: linear-gradient(135deg, #0D9488, #14B8A6);
+        }
+
+        .branch-modal-btn-icon.patna {
+            background: linear-gradient(135deg, #7C3AED, #A78BFA);
+        }
+
+        .branch-modal-btn-icon i {
+            width: 22px;
+            height: 22px;
+            color: #fff;
+        }
+
+        .branch-modal-btn-info {
+            text-align: left;
+            flex: 1;
+        }
+
+        .branch-modal-btn-info strong {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .branch-modal-btn-info span {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        .branch-modal-btn-arrow {
+            color: rgba(255, 255, 255, 0.3);
+            transition: all 0.2s ease;
+            font-size: 1.2rem;
+        }
+
+        .branch-modal-btn:hover .branch-modal-btn-arrow {
+            color: var(--teal-400);
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 480px) {
+            .branch-modal {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+
+            .branch-modal h3 {
+                font-size: 1.25rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1210,7 +1391,7 @@
                 <a href="#reviews">Reviews</a>
                 <a href="#pricing">Pricing</a>
                 <a href="#how-it-works">How It Works</a>
-                <a href="https://wa.me/919152837001" class="cta-btn">Book Free Trial</a>
+                <a href="javascript:void(0)" class="cta-btn" onclick="openBranchModal('Hi, I would like to book a Free Trial at Chartered Studies Library. Please share the details!')">Book Free Trial</a>
             </div>
             <div class="hamburger">
                 <span></span>
@@ -1226,7 +1407,7 @@
         <a href="#reviews">Reviews</a>
         <a href="#pricing">Pricing</a>
         <a href="#how-it-works">How It Works</a>
-        <a href="https://wa.me/919152837001">Book Free Trial</a>
+        <a href="javascript:void(0)" onclick="openBranchModal('Hi, I would like to book a Free Trial at Chartered Studies Library. Please share the details!')">Book Free Trial</a>
     </div>
 
     <section class="hero">
@@ -1237,9 +1418,9 @@
         <canvas id="particles-canvas"></canvas>
         <div class="hero-content">
             <h1>Your Ultimate Study Space for Serious Aspirants</h1>
-            <p>Distraction-free, premium study environments in Mumbai & Patna — where focused minds achieve greatness.</p>
+            <p>Distraction-free, premium study environments in Mumbai &amp; Patna — where focused minds achieve greatness.</p>
             <div class="hero-buttons">
-                <a href="https://wa.me/919152837001" class="btn-primary">Book Free Trial</a>
+                <a href="javascript:void(0)" class="btn-primary" onclick="openBranchModal('Hi, I would like to book a Free Trial at Chartered Studies Library. Please share the details!')">Book Free Trial</a>
                 <a href="#pricing" class="btn-secondary">Explore Plans</a>
             </div>
             <div class="floating-badges">
@@ -1276,7 +1457,7 @@
                     <div class="feature-icon">
                         <i data-lucide="map-pin"></i>
                     </div>
-                    <h3 class="feature-title">Prime Location</h3>
+                    <h3 class="feature-title">Near Railway Station</h3>
                     <p class="feature-desc">2-min walk from Mulund West Station</p>
                 </div>
                 <div class="feature-card reveal stagger-2">
@@ -1305,7 +1486,7 @@
                         <i data-lucide="plug"></i>
                     </div>
                     <h3 class="feature-title">Power Sockets</h3>
-                    <p class="feature-desc">Charge laptops & phones at every seat</p>
+                    <p class="feature-desc">Charge laptops &amp; phones at every seat</p>
                 </div>
                 <div class="feature-card reveal stagger-6">
                     <div class="feature-icon">
@@ -1332,7 +1513,7 @@
                     <div class="feature-icon">
                         <i data-lucide="layout-grid"></i>
                     </div>
-                    <h3 class="feature-title">Individual Cabins<br>(Only in Patna) </h3>
+                    <h3 class="feature-title">Individual Cabins</h3>
                     <p class="feature-desc">Personal study pods for focus</p>
                 </div>
                 <div class="feature-card reveal stagger-4">
@@ -1510,21 +1691,21 @@
                     <p class="pricing-time">7 AM – 12 PM</p>
                     <div class="pricing-price">₹1,500</div>
                     <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Batch%201%20plan%20(7%20AM%20%E2%80%93%2012%20PM%2C%20%E2%82%B91%2C500%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Batch 1 plan (7 AM – 12 PM, ₹1,500/month). Please share the details!')">Get Started</button>
                 </div>
                 <div class="pricing-card reveal stagger-2">
                     <h3 class="pricing-name">Batch 2</h3>
                     <p class="pricing-time">12 PM – 6 PM</p>
                     <div class="pricing-price">₹1,500</div>
                     <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Batch%202%20plan%20(12%20PM%20%E2%80%93%206%20PM%2C%20%E2%82%B91%2C500%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Batch 2 plan (12 PM – 6 PM, ₹1,500/month). Please share the details!')">Get Started</button>
                 </div>
                 <div class="pricing-card reveal stagger-3">
                     <h3 class="pricing-name">Batch 3</h3>
                     <p class="pricing-time">6 PM – 11 PM</p>
                     <div class="pricing-price">₹1,500</div>
                     <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Batch%203%20plan%20(6%20PM%20%E2%80%93%2011%20PM%2C%20%E2%82%B91%2C500%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Batch 3 plan (6 PM – 11 PM, ₹1,500/month). Please share the details!')">Get Started</button>
                 </div>
                 <div class="pricing-card reveal stagger-4">
                     <span class="pricing-badge">Popular</span>
@@ -1532,14 +1713,14 @@
                     <p class="pricing-time">Any 2 Batches</p>
                     <div class="pricing-price">₹2,500</div>
                     <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Any%202%20Batch%20plan%20(%E2%82%B92%2C500%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Any 2 Batch plan (₹2,500/month). Please share the details!')">Get Started</button>
                 </div>
                 <div class="pricing-card reveal stagger-5">
                     <h3 class="pricing-name">Overnight Slot</h3>
                     <p class="pricing-time">11 PM – 6 AM</p>
                     <div class="pricing-price">₹1,200</div>
                     <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Overnight%20Slot%20plan%20(11%20PM%20%E2%80%93%206%20AM%2C%20%E2%82%B91%2C200%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Overnight Slot plan (11 PM – 6 AM, ₹1,200/month). Please share the details!')">Get Started</button>
                 </div>
                 <div class="pricing-card featured reveal stagger-6">
                     <span class="pricing-badge">Best Value</span>
@@ -1547,14 +1728,14 @@
                     <p class="pricing-time">24×7 Any Time</p>
                     <div class="pricing-price">₹3,200</div>
                     <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Scholars%20Membership%20(24%C3%977%20Any%20Time%2C%20%E2%82%B93%2C200%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Scholars Membership (24×7 Any Time, ₹3,200/month). Please share the details!')">Get Started</button>
                 </div>
                 <div class="pricing-card reveal stagger-1">
                     <h3 class="pricing-name">Weekend Plan</h3>
                     <p class="pricing-time">Sat-Sun, 10AM–10PM</p>
                     <div class="pricing-price">₹1,800</div>
                     <p class="pricing-period">for 8 weekends</p>
-                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Weekend%20Plan%20(Sat-Sun%2C%2010AM%E2%80%9310PM%2C%20%E2%82%B91%2C800%20for%208%20weekends).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Weekend Plan (Sat-Sun, 10AM–10PM, ₹1,800 for 8 weekends). Please share the details!')">Get Started</button>
                 </div>
                 <div class="pricing-card reveal stagger-2">
                     <span class="pricing-badge">Try First</span>
@@ -1562,17 +1743,17 @@
                     <p class="pricing-time">10 AM – 10 PM</p>
                     <div class="pricing-price">₹250</div>
                     <p class="pricing-period">per day</p>
-                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20One%20Day%20Plan%20(10%20AM%20%E2%80%93%2010%20PM%2C%20%E2%82%B9250%2Fday).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the One Day Plan (10 AM – 10 PM, ₹250/day). Please share the details!')">Get Started</button>
                 </div>
             </div>
             <div class="pricing-note reveal">
                 <p style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
                     <span style="display: flex; align-items: center; gap: 0.5rem;">
                         <i data-lucide="lightbulb"></i>
-                        Join with a friend & both get ₹200 off!
+                        Join with a friend &amp; both get ₹200 off!
                     </span>
                     <span style="opacity: 0.5;">|</span>
-                    <span>Pay for 2 months & get 7 days FREE!</span>
+                    <span>Pay for 2 months &amp; get 7 days FREE!</span>
                 </p>
             </div>
         </div>
@@ -1648,8 +1829,8 @@
             <h2 class="cta-headline">Ready to Transform Your Study Routine?</h2>
             <p class="cta-subtitle">Book your free one-day trial today and experience the difference</p>
             <div class="cta-buttons">
-                <a href="https://wa.me/919152837001" class="btn-primary">Book Free Trial</a>
-                <a href="https://wa.me/919152837001" class="btn-whatsapp">
+                <a href="javascript:void(0)" class="btn-primary" onclick="openBranchModal('Hi, I would like to book a Free Trial at Chartered Studies Library. Please share the details!')">Book Free Trial</a>
+                <a href="javascript:void(0)" class="btn-whatsapp" onclick="openBranchModal('Hi, I would like to know more about Chartered Studies Library. Please share the details!')">
                     <i data-lucide="message-circle"></i>
                     Contact on WhatsApp
                 </a>
@@ -1695,12 +1876,88 @@
         </div>
     </footer>
 
-    <a href="https://wa.me/919152837001" class="whatsapp-float" target="_blank">
+    <a href="javascript:void(0)" class="whatsapp-float" onclick="openBranchModal('Hi, I would like to know more about Chartered Studies Library. Please share the details!')">
         <span class="whatsapp-tooltip">Chat with us!</span>
         <i data-lucide="message-circle"></i>
     </a>
 
+    <!-- Branch Selection Modal -->
+    <div class="branch-modal-overlay" id="branchModal">
+        <div class="branch-modal">
+            <button class="branch-modal-close" onclick="closeBranchModal()">×</button>
+            <div class="branch-modal-icon">
+                <i data-lucide="map-pin"></i>
+            </div>
+            <h3>Select Your Branch</h3>
+            <p>Which location are you enquiring about?</p>
+            <div class="branch-modal-buttons">
+                <a href="#" class="branch-modal-btn" id="mumbaiBtn" onclick="selectBranch('mumbai'); return false;">
+                    <div class="branch-modal-btn-icon mumbai">
+                        <i data-lucide="building"></i>
+                    </div>
+                    <div class="branch-modal-btn-info">
+                        <strong>Mumbai Branch</strong>
+                        <span>Mulund West, near Railway Station</span>
+                    </div>
+                    <div class="branch-modal-btn-arrow">→</div>
+                </a>
+                <a href="#" class="branch-modal-btn" id="patnaBtn" onclick="selectBranch('patna'); return false;">
+                    <div class="branch-modal-btn-icon patna">
+                        <i data-lucide="building-2"></i>
+                    </div>
+                    <div class="branch-modal-btn-info">
+                        <strong>Patna Branch</strong>
+                        <span>Kankarbagh Main Road</span>
+                    </div>
+                    <div class="branch-modal-btn-arrow">→</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // ===== Branch Modal Logic =====
+        const MUMBAI_WA = '919152837001';
+        const PATNA_WA = '919152837001'; // Replace with actual Patna WhatsApp number
+        let pendingWaMessage = '';
+
+        function openBranchModal(message) {
+            pendingWaMessage = message || 'Hi, I would like to know more about Chartered Studies Library. Please share the details!';
+            document.getElementById('branchModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeBranchModal() {
+            document.getElementById('branchModal').classList.remove('active');
+            document.body.style.overflow = '';
+            pendingWaMessage = '';
+        }
+
+        function selectBranch(branch) {
+            const number = branch === 'mumbai' ? MUMBAI_WA : PATNA_WA;
+            const branchLabel = branch === 'mumbai' ? 'Mumbai' : 'Patna';
+            let msg = pendingWaMessage;
+            if (!msg.toLowerCase().includes(branchLabel.toLowerCase())) {
+                const suffix = '(' + branchLabel + ' Branch). Please share the details!';
+                msg = msg.replace('Please share the details!', suffix);
+                if (msg === pendingWaMessage) {
+                    msg = '[' + branchLabel + ' Branch] ' + msg;
+                }
+            }
+            const encoded = encodeURIComponent(msg);
+            window.open('https://wa.me/' + number + '?text=' + encoded, '_blank');
+            closeBranchModal();
+        }
+
+        // Close modal on overlay click
+        document.getElementById('branchModal').addEventListener('click', function(e) {
+            if (e.target === this) closeBranchModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeBranchModal();
+        });
         document.addEventListener(`DOMContentLoaded`, function() {
             if (typeof lucide !== `undefined`) {
                 lucide.createIcons();
@@ -1917,5 +2174,5 @@
         });
     </script>
     
-</body>
-</html>
+
+</body></html>
