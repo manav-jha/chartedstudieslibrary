@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chartered Studies Library - Premium Study Space for CA, CS, CMA & UPSC Aspirants</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --teal-500: #0D9488;
+            --teal-600: #14B8A6;
+            --teal-400: #2DD4BF;
+            --black-900: #000000;
+            --black-800: #0A0A0A;
+            --black-700: #111111;
+            --white: #FFFFFF;
+            --whatsapp: #25D366;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black-900);
+            color: var(--white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--teal-500), var(--teal-600), var(--teal-400));
+            z-index: 9999;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--teal-400);
+        }
+
+        .cta-btn {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            border: none;
+            border-radius: 8px;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.4);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: rgba(17, 17, 17, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 6rem 2rem 2rem;
+            transition: right 0.3s ease;
+            z-index: 999;
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            color: var(--white);
+            text-decoration: none;
+            padding: 1rem 0;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--teal-400);
+            padding-left: 1rem;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(3px);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(13, 148, 136, 0.2));
+            z-index: 1;
+        }
+
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--white), var(--teal-400));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            border: none;
+            border-radius: 10px;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(13, 148, 136, 0.5);
+        }
+
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: 2px solid var(--teal-400);
+            border-radius: 10px;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(45, 212, 191, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .floating-badges {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .badge {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            font-weight: 600;
+            animation: float 3s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge:nth-child(2) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--teal-400), var(--teal-600));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--white), var(--teal-400));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--teal-400);
+            box-shadow: 0 20px 60px rgba(13, 148, 136, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon i {
+            width: 30px;
+            height: 30px;
+            color: var(--white);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .feature-desc {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+
+        .branches-section {
+            background: linear-gradient(180deg, var(--black-900), var(--black-800));
+        }
+
+        .tab-switch {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            gap: 1rem;
+        }
+
+        .tab-btn {
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            border-color: transparent;
+            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.4);
+        }
+
+        .branch-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .branch-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .branch-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .branch-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .branch-location {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .branch-address {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .branch-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-item:hover {
+            background: rgba(13, 148, 136, 0.1);
+            transform: translateX(5px);
+        }
+
+        .highlight-item i {
+            width: 20px;
+            height: 20px;
+            color: var(--teal-400);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .reviews-section {
+            background: var(--black-800);
+            overflow: hidden;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 2rem;
+            transition: transform 0.5s ease;
+        }
+
+        .review-card {
+            min-width: 350px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(13, 148, 136, 0.2);
+        }
+
+        .review-stars {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .review-text {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-role {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--teal-400);
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        .pricing-section {
+            background: linear-gradient(180deg, var(--black-800), var(--black-900));
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+        }
+
+        .pricing-card {
+            padding: 2.5rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--teal-400);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--teal-400);
+            box-shadow: 0 0 40px rgba(13, 148, 136, 0.3);
+        }
+
+        .pricing-card.featured::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--teal-500), var(--teal-600), var(--teal-400));
+        }
+
+        .pricing-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .pricing-time {
+            opacity: 0.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--teal-400);
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .pricing-period {
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            border: none;
+            border-radius: 10px;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.4);
+        }
+
+        .pricing-note {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .pricing-note i {
+            width: 24px;
+            height: 24px;
+            color: var(--teal-400);
+            margin-right: 0.5rem;
+        }
+
+        .process-section {
+            background: var(--black-900);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 50px;
+            right: -1.5rem;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--teal-400), transparent);
+            z-index: -1;
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .process-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover .process-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 40px rgba(13, 148, 136, 0.5);
+        }
+
+        .process-icon i {
+            width: 40px;
+            height: 40px;
+            color: var(--white);
+        }
+
+        .process-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .process-desc {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .community-section {
+            position: relative;
+            padding: 8rem 2rem;
+            overflow: hidden;
+        }
+
+        .community-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .community-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .community-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(13, 148, 136, 0.3));
+            z-index: 1;
+        }
+
+        .community-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .community-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .community-item {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .community-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .community-quote {
+            font-size: 1.5rem;
+            font-style: italic;
+            opacity: 0.9;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--teal-400);
+            border-radius: 10px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--black-900), var(--teal-500), var(--teal-600));
+            background-size: 200% 200%;
+            animation: gradientShift 5s ease infinite;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .cta-headline {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            margin-bottom: 1rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-whatsapp {
+            padding: 1.25rem 2.5rem;
+            background: var(--whatsapp);
+            border: none;
+            border-radius: 10px;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-whatsapp i {
+            width: 24px;
+            height: 24px;
+        }
+
+        footer {
+            background: var(--black-900);
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--teal-400);
+        }
+
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-tagline {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--teal-400);
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            margin-bottom: 0.75rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-icon:hover {
+            background: var(--teal-400);
+            transform: translateY(-5px);
+        }
+
+        .social-icon i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--whatsapp);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            cursor: pointer;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.7);
+        }
+
+        .whatsapp-float i {
+            width: 32px;
+            height: 32px;
+            color: var(--white);
+        }
+
+        .whatsapp-tooltip {
+            position: absolute;
+            right: 70px;
+            background: var(--black-800);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .whatsapp-float:hover .whatsapp-tooltip {
+            opacity: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            }
+            50% {
+                box-shadow: 0 5px 30px rgba(37, 211, 102, 0.8);
+            }
+        }
+
+        .kuse-branding {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .kuse-branding:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--teal-400);
+            transform: translateY(-2px);
+        }
+
+        .kuse-branding svg {
+            height: 1.2em;
+            width: auto;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+            }
+
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            section {
+                padding: 4rem 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step::after {
+                display: none;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .carousel-track {
+                gap: 1rem;
+            }
+
+            .review-card {
+                min-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-progress"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <img src="https://api.kuse.ai/api/folder/v1/file/2d9210b119ba55de511155d1b8ed88dfc995d50e0b9085d036bafc1620ddf0e6_2774109.png" alt="Chartered Studies Library Logo" class="logo-img">
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#branches">Branches</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="https://wa.me/919152837001" class="cta-btn">Book Free Trial</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="#features">Features</a>
+        <a href="#branches">Branches</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="https://wa.me/919152837001">Book Free Trial</a>
+    </div>
+
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="https://api.kuse.ai/api/folder/v1/file/e071b2a1ed0a2af2cb333aadba8398225c3c4520defe8ab0d859b8a4f7e5950e_2774116.jpg" alt="Chartered Studies Library Interior">
+        </div>
+        <div class="hero-overlay"></div>
+        <canvas id="particles-canvas"></canvas>
+        <div class="hero-content">
+            <h1>Your Ultimate Study Space for Serious Aspirants</h1>
+            <p>Distraction-free, premium study environments in Mumbai & Patna — where focused minds achieve greatness.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/919152837001" class="btn-primary">Book Free Trial</a>
+                <a href="#pricing" class="btn-secondary">Explore Plans</a>
+            </div>
+            <div class="floating-badges">
+                <div class="badge">⭐ 4.9 Rating — Mumbai</div>
+                <div class="badge">⭐ 5.0 Rating — Patna</div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item reveal">
+                    <div class="stat-number" data-target="500">0</div>
+                    <div class="stat-label">Students</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number" data-target="4.9">0</div>
+                    <div class="stat-label">Rating</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number" data-target="2">0</div>
+                    <div class="stat-label">Branches</div>
+                </div>
+                <div class="stat-item reveal">
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">7 Access</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title reveal">Why Chartered Studies Library?</h2>
+            <p class="section-subtitle reveal">Everything you need for distraction-free, productive study sessions</p>
+            <div class="features-grid">
+                <div class="feature-card reveal stagger-1">
+                    <div class="feature-icon">
+                        <i data-lucide="map-pin"></i>
+                    </div>
+                    <h3 class="feature-title">Near Railway Station</h3>
+                    <p class="feature-desc">2-min walk from Mulund West Station</p>
+                </div>
+                <div class="feature-card reveal stagger-2">
+                    <div class="feature-icon">
+                        <i data-lucide="wind"></i>
+                    </div>
+                    <h3 class="feature-title">Fully Air Conditioned</h3>
+                    <p class="feature-desc">Comfortable temperature year-round</p>
+                </div>
+                <div class="feature-card reveal stagger-3">
+                    <div class="feature-icon">
+                        <i data-lucide="shield-check"></i>
+                    </div>
+                    <h3 class="feature-title">CCTV Surveillance</h3>
+                    <p class="feature-desc">24/7 security monitoring</p>
+                </div>
+                <div class="feature-card reveal stagger-4">
+                    <div class="feature-icon">
+                        <i data-lucide="wifi"></i>
+                    </div>
+                    <h3 class="feature-title">High-Speed 5G WiFi</h3>
+                    <p class="feature-desc">Seamless connectivity for online prep</p>
+                </div>
+                <div class="feature-card reveal stagger-5">
+                    <div class="feature-icon">
+                        <i data-lucide="plug"></i>
+                    </div>
+                    <h3 class="feature-title">Power Sockets</h3>
+                    <p class="feature-desc">Charge laptops & phones at every seat</p>
+                </div>
+                <div class="feature-card reveal stagger-6">
+                    <div class="feature-icon">
+                        <i data-lucide="droplets"></i>
+                    </div>
+                    <h3 class="feature-title">RO Drinking Water</h3>
+                    <p class="feature-desc">Pure, clean water always available</p>
+                </div>
+                <div class="feature-card reveal stagger-1">
+                    <div class="feature-icon">
+                        <i data-lucide="volume-x"></i>
+                    </div>
+                    <h3 class="feature-title">Zero Disturbance</h3>
+                    <p class="feature-desc">Strict silence policy enforced</p>
+                </div>
+                <div class="feature-card reveal stagger-2">
+                    <div class="feature-icon">
+                        <i data-lucide="armchair"></i>
+                    </div>
+                    <h3 class="feature-title">Comfortable Seating</h3>
+                    <p class="feature-desc">Ergonomic chairs for long sessions</p>
+                </div>
+                <div class="feature-card reveal stagger-3">
+                    <div class="feature-icon">
+                        <i data-lucide="layout-grid"></i>
+                    </div>
+                    <h3 class="feature-title">Individual Cabins</h3>
+                    <p class="feature-desc">Personal study pods for focus</p>
+                </div>
+                <div class="feature-card reveal stagger-4">
+                    <div class="feature-icon">
+                        <i data-lucide="wallet"></i>
+                    </div>
+                    <h3 class="feature-title">Most Affordable</h3>
+                    <p class="feature-desc">Premium experience at student-friendly prices</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="branches" class="branches-section">
+        <div class="container">
+            <h2 class="section-title reveal">Our Branches</h2>
+            <p class="section-subtitle reveal">Premium study spaces in two major cities</p>
+            <div class="tab-switch reveal">
+                <button class="tab-btn active" data-tab="mumbai">Mumbai</button>
+                <button class="tab-btn" data-tab="patna">Patna</button>
+            </div>
+            <div id="mumbai" class="branch-content active">
+                <div class="branch-card reveal">
+                    <div class="branch-header">
+                        <h3 class="branch-location">Mulund West, Mumbai</h3>
+                        <p class="branch-address">7th Floor, APT Plaza, Above Ednovate Classes, Behind Atithi Restaurant, Near Mulund West Railway Station, Mumbai 400080</p>
+                    </div>
+                    <div class="branch-highlights">
+                        <div class="highlight-item">
+                            <i data-lucide="map-pin"></i>
+                            <span>1-min walk from station</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i data-lucide="clock"></i>
+                            <span>6-hour flexible slots</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i data-lucide="star"></i>
+                            <span>4.9★ Google Rating</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i data-lucide="building"></i>
+                            <span>7th Floor premium space</span>
+                        </div>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.5!2d72.9567!3d19.1746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDEwJzI4LjYiTiA3MsKwNTcnMjQuMSJF!5e0!3m2!1sen!2sin!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+            <div id="patna" class="branch-content">
+                <div class="branch-card reveal">
+                    <div class="branch-header">
+                        <h3 class="branch-location">Kankarbagh, Patna</h3>
+                        <p class="branch-address">Kankarbagh Main Road, Patna, Bihar</p>
+                    </div>
+                    <div class="branch-highlights">
+                        <div class="highlight-item">
+                            <i data-lucide="maximize"></i>
+                            <span>Spacious study area</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i data-lucide="lock"></i>
+                            <span>Locker facility available</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i data-lucide="star"></i>
+                            <span>5.0★ Rating</span>
+                        </div>
+                        <div class="highlight-item">
+                            <i data-lucide="award"></i>
+                            <span>Best environment in Patna</span>
+                        </div>
+                    </div>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.5!2d85.1376!3d25.5941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDM1JzM4LjgiTiA4NcKwMDgnMTUuNCJF!5e0!3m2!1sen!2sin!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reviews" class="reviews-section">
+        <div class="container">
+            <h2 class="section-title reveal">What Our Students Say</h2>
+            <p class="section-subtitle reveal">Join 500+ students who transformed their study routine</p>
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"The most peaceful library I've ever studied in. Perfect for CA exam prep. Zero distractions!"</p>
+                        <div class="review-author">
+                            <div class="author-avatar">RS</div>
+                            <div class="author-info">
+                                <div class="author-name">Rahul S.</div>
+                                <div class="author-role">CA Aspirant</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Affordable, clean, and the WiFi is blazing fast. I practically live here during exam season."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">PM</div>
+                            <div class="author-info">
+                                <div class="author-name">Priya M.</div>
+                                <div class="author-role">CS Student</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"The individual cabins are a game-changer. I can focus for hours without any disturbance."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">AK</div>
+                            <div class="author-info">
+                                <div class="author-name">Amit K.</div>
+                                <div class="author-role">UPSC Aspirant</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"Best library in Mulund, hands down. AC, power sockets, and great vibes."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">SD</div>
+                            <div class="author-info">
+                                <div class="author-name">Sneha D.</div>
+                                <div class="author-role">CMA Student</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"The Patna branch is incredible. Spacious, well-maintained, and the staff is super helpful."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">VR</div>
+                            <div class="author-info">
+                                <div class="author-name">Vikash R.</div>
+                                <div class="author-role">CA Student</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">"24/7 access is a blessing. I study late nights and this place never disappoints."</p>
+                        <div class="review-author">
+                            <div class="author-avatar">NP</div>
+                            <div class="author-info">
+                                <div class="author-name">Neha P.</div>
+                                <div class="author-role">Law Student</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <h2 class="section-title reveal">Simple, Transparent Pricing</h2>
+            <p class="section-subtitle reveal">Most affordable premium study space in the area</p>
+            <div class="pricing-grid">
+                <div class="pricing-card reveal stagger-1">
+                    <h3 class="pricing-name">Batch 1</h3>
+                    <p class="pricing-time">7 AM – 12 PM</p>
+                    <div class="pricing-price">₹1,500</div>
+                    <p class="pricing-period">per month</p>
+                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Batch%201%20plan%20(7%20AM%20%E2%80%93%2012%20PM%2C%20%E2%82%B91%2C500%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                </div>
+                <div class="pricing-card reveal stagger-2">
+                    <h3 class="pricing-name">Batch 2</h3>
+                    <p class="pricing-time">12 PM – 6 PM</p>
+                    <div class="pricing-price">₹1,500</div>
+                    <p class="pricing-period">per month</p>
+                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Batch%202%20plan%20(12%20PM%20%E2%80%93%206%20PM%2C%20%E2%82%B91%2C500%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                </div>
+                <div class="pricing-card reveal stagger-3">
+                    <h3 class="pricing-name">Batch 3</h3>
+                    <p class="pricing-time">6 PM – 11 PM</p>
+                    <div class="pricing-price">₹1,500</div>
+                    <p class="pricing-period">per month</p>
+                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Batch%203%20plan%20(6%20PM%20%E2%80%93%2011%20PM%2C%20%E2%82%B91%2C500%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                </div>
+                <div class="pricing-card reveal stagger-4">
+                    <span class="pricing-badge">Popular</span>
+                    <h3 class="pricing-name">Any 2 Batch</h3>
+                    <p class="pricing-time">Any 2 Batches</p>
+                    <div class="pricing-price">₹2,500</div>
+                    <p class="pricing-period">per month</p>
+                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Any%202%20Batch%20plan%20(%E2%82%B92%2C500%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                </div>
+                <div class="pricing-card reveal stagger-5">
+                    <h3 class="pricing-name">Overnight Slot</h3>
+                    <p class="pricing-time">11 PM – 6 AM</p>
+                    <div class="pricing-price">₹1,200</div>
+                    <p class="pricing-period">per month</p>
+                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Overnight%20Slot%20plan%20(11%20PM%20%E2%80%93%206%20AM%2C%20%E2%82%B91%2C200%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                </div>
+                <div class="pricing-card featured reveal stagger-6">
+                    <span class="pricing-badge">Best Value</span>
+                    <h3 class="pricing-name">Scholars Membership</h3>
+                    <p class="pricing-time">24×7 Any Time</p>
+                    <div class="pricing-price">₹3,200</div>
+                    <p class="pricing-period">per month</p>
+                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Scholars%20Membership%20(24%C3%977%20Any%20Time%2C%20%E2%82%B93%2C200%2Fmonth).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                </div>
+                <div class="pricing-card reveal stagger-1">
+                    <h3 class="pricing-name">Weekend Plan</h3>
+                    <p class="pricing-time">Sat-Sun, 10AM–10PM</p>
+                    <div class="pricing-price">₹1,800</div>
+                    <p class="pricing-period">for 8 weekends</p>
+                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20Weekend%20Plan%20(Sat-Sun%2C%2010AM%E2%80%9310PM%2C%20%E2%82%B91%2C800%20for%208%20weekends).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                </div>
+                <div class="pricing-card reveal stagger-2">
+                    <span class="pricing-badge">Try First</span>
+                    <h3 class="pricing-name">One Day Plan</h3>
+                    <p class="pricing-time">10 AM – 10 PM</p>
+                    <div class="pricing-price">₹250</div>
+                    <p class="pricing-period">per day</p>
+                    <button class="pricing-btn" onclick="window.open('https://wa.me/919152837001?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20the%20One%20Day%20Plan%20(10%20AM%20%E2%80%93%2010%20PM%2C%20%E2%82%B9250%2Fday).%20Please%20share%20the%20details!', '_blank')">Get Started</button>
+                </div>
+            </div>
+            <div class="pricing-note reveal">
+                <p style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                    <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="lightbulb"></i>
+                        Join with a friend & both get ₹200 off!
+                    </span>
+                    <span style="opacity: 0.5;">|</span>
+                    <span>Pay for 2 months & get 7 days FREE!</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="process-section">
+        <div class="container">
+            <h2 class="section-title reveal">Get Started in 4 Simple Steps</h2>
+            <p class="section-subtitle reveal">Your journey to focused studying begins here</p>
+            <div class="process-steps">
+                <div class="process-step reveal stagger-1">
+                    <div class="process-icon">
+                        <i data-lucide="message-circle"></i>
+                    </div>
+                    <h3 class="process-title">Book Free Trial</h3>
+                    <p class="process-desc">WhatsApp us on +91 9152837001</p>
+                </div>
+                <div class="process-step reveal stagger-2">
+                    <div class="process-icon">
+                        <i data-lucide="building"></i>
+                    </div>
+                    <h3 class="process-title">Visit the Library</h3>
+                    <p class="process-desc">Experience the environment firsthand</p>
+                </div>
+                <div class="process-step reveal stagger-3">
+                    <div class="process-icon">
+                        <i data-lucide="clipboard-list"></i>
+                    </div>
+                    <h3 class="process-title">Choose Your Plan</h3>
+                    <p class="process-desc">Pick the perfect plan for your schedule</p>
+                </div>
+                <div class="process-step reveal stagger-4">
+                    <div class="process-icon">
+                        <i data-lucide="rocket"></i>
+                    </div>
+                    <h3 class="process-title">Start Studying!</h3>
+                    <p class="process-desc">Begin your focused study journey</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="community-section">
+        <div class="community-bg">
+            <img src="https://api.kuse.ai/api/folder/v1/file/e071b2a1ed0a2af2cb333aadba8398225c3c4520defe8ab0d859b8a4f7e5950e_2774116.jpg" alt="Community">
+        </div>
+        <div class="community-overlay"></div>
+        <div class="community-content">
+            <h2 class="section-title reveal">More Than Just a Library</h2>
+            <p class="section-subtitle reveal">We're a friendly community of ambitious students</p>
+            <div class="community-highlights">
+                <div class="community-item reveal stagger-1">
+                    <h3>Study Groups</h3>
+                </div>
+                <div class="community-item reveal stagger-2">
+                    <h3>Peer Learning</h3>
+                </div>
+                <div class="community-item reveal stagger-3">
+                    <h3>Exam Motivation</h3>
+                </div>
+                <div class="community-item reveal stagger-4">
+                    <h3>Networking</h3>
+                </div>
+            </div>
+            <div class="community-quote reveal">
+                "We are not just a Library, but also a Friendly Community of Students :-)"
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-headline">Ready to Transform Your Study Routine?</h2>
+            <p class="cta-subtitle">Book your free one-day trial today and experience the difference</p>
+            <div class="cta-buttons">
+                <a href="https://wa.me/919152837001" class="btn-primary">Book Free Trial</a>
+                <a href="https://wa.me/919152837001" class="btn-whatsapp">
+                    <i data-lucide="message-circle"></i>
+                    Contact on WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <img src="https://api.kuse.ai/api/folder/v1/file/2d9210b119ba55de511155d1b8ed88dfc995d50e0b9085d036bafc1620ddf0e6_2774109.png" alt="Chartered Studies Library" class="footer-logo">
+                <p class="footer-tagline">Your Ultimate Study Space</p>
+                <div class="social-icons">
+                    <div class="social-icon"><i data-lucide="instagram"></i></div>
+                    <div class="social-icon"><i data-lucide="youtube"></i></div>
+                    <div class="social-icon"><i data-lucide="message-circle"></i></div>
+                    <div class="social-icon"><i data-lucide="linkedin"></i></div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#branches">Branches</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-section footer-contact">
+                <h3>Mumbai Branch</h3>
+                <p>7th Floor, APT Plaza, Above Ednovate Classes, Behind Atithi Restaurant, Near Mulund West Railway Station, Mumbai 400080</p>
+                <p><strong>Phone:</strong> +91 9152837001</p>
+            </div>
+            <div class="footer-section footer-contact">
+                <h3>Patna Branch</h3>
+                <p>Kankarbagh Main Road, Patna, Bihar</p>
+                <p><strong>Website:</strong> www.charteredstudies.in</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Chartered Studies Library. All rights reserved.</p>
+            <a href="https://kuse.ai" target="_blank" class="kuse-branding">
+                <span>made with</span>
+                <svg viewBox="0,0,160,44" xmlns="http://www.w3.org/2000/svg"><path d="m.01,20.65C-.43,8.25,9.3-2.03,22.04.34,34.78,2.72,43.29,8.32,43.29,22.9s-8.66,19.01-22.03,20.3C7.9,44.5.46,33.05.01,20.65z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="m146.76,7.94c8.07,0,13.24,6.15,13.24,14.58v1.39h-20.75c.45,4.05,3.51,7.37,8.57,7.37,2.62,0,5.73-1.05,7.62-2.94l2.67,3.83c-2.67,2.55-6.62,3.88-10.9,3.88-8.07,0-14.08-5.6-14.08-14.08,0-7.76,5.67-14.02,13.63-14.02zm0,4.77c-5.01,0-7.29,3.83-7.57,7.1h15.13c-.11-3.16-2.28-7.1-7.57-7.1z" fill="currentColor"/><path d="m86.64,24.49c0,4.15,2.39,6.84,6.84,6.84,4.4,0,6.84-2.69,6.84-6.84V8.55h5.37v16.33c0,6.7-4.06,11.14-12.21,11.14-8.21,0-12.21-4.5-12.21-11.09V8.55h5.37v15.94zm32.99-16.55c4.49,0,8.06,1.47,10.6,3.86l-2.59,3.81c-2.05-2-5.28-3.08-8.06-3.08-2.88,0-4.84,1.37-4.84,3.32,0,1.91,2.64,2.54,5.81,3.27,4.59,1.08,10.26,2.4,10.26,8.46,0,4.94-3.76,8.41-11.14,8.41-4.98,0-8.94-1.76-11.24-4.11l2.54-4.11c1.86,1.91,5.18,3.67,8.84,3.67,3.91,0,5.57-1.66,5.57-3.62,0-2.3-2.88-2.98-6.21-3.76-4.54-1.08-9.87-2.3-9.87-8.06,0-4.5,4.2-8.06,10.31-8.06zM60.79,20.82,71.44,8.55h6.5L66.46,21.26,78.82,35.44h-6.5l-9.28-11.1-2.25,2.49v8.6h-5.33V8.55h5.33v12.27z" fill="currentColor"/></svg>
+            </a>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/919152837001" class="whatsapp-float" target="_blank">
+        <span class="whatsapp-tooltip">Chat with us!</span>
+        <i data-lucide="message-circle"></i>
+    </a>
+
+    <script>
+        document.addEventListener(`DOMContentLoaded`, function() {
+            if (typeof lucide !== `undefined`) {
+                lucide.createIcons();
+            }
+
+            const navbar = document.querySelector(`.navbar`);
+            const hamburger = document.querySelector(`.hamburger`);
+            const mobileMenu = document.querySelector(`.mobile-menu`);
+            const scrollProgress = document.querySelector(`.scroll-progress`);
+
+            window.addEventListener(`scroll`, () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add(`scrolled`);
+                } else {
+                    navbar.classList.remove(`scrolled`);
+                }
+
+                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (window.scrollY / windowHeight) * 100;
+                scrollProgress.style.width = scrolled + `%`;
+            });
+
+            hamburger.addEventListener(`click`, () => {
+                hamburger.classList.toggle(`active`);
+                mobileMenu.classList.toggle(`active`);
+            });
+
+            mobileMenu.querySelectorAll(`a`).forEach(link => {
+                link.addEventListener(`click`, () => {
+                    hamburger.classList.remove(`active`);
+                    mobileMenu.classList.remove(`active`);
+                });
+            });
+
+            const canvas = document.getElementById(`particles-canvas`);
+            const ctx = canvas.getContext(`2d`);
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    radius: Math.random() * 2 + 1
+                });
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = `rgba(45, 212, 191, 0.5)`;
+
+                particles.forEach(particle => {
+                    particle.x += particle.vx;
+                    particle.y += particle.vy;
+
+                    if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+                    if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                ctx.strokeStyle = `rgba(45, 212, 191, 0.2)`;
+                ctx.lineWidth = 0.5;
+
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            animateParticles();
+
+            window.addEventListener(`resize`, () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add(`active`);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll(`.reveal`).forEach(el => observer.observe(el));
+
+            const statNumbers = document.querySelectorAll(`.stat-number`);
+            let animated = false;
+
+            const statObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animated) {
+                        animated = true;
+                        statNumbers.forEach(stat => {
+                            const target = parseFloat(stat.getAttribute(`data-target`));
+                            const duration = 2000;
+                            const step = target / (duration / 16);
+                            let current = 0;
+
+                            const updateCounter = () => {
+                                current += step;
+                                if (current < target) {
+                                    stat.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(1);
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    stat.textContent = target % 1 === 0 ? target : target.toFixed(1);
+                                }
+                            };
+
+                            updateCounter();
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            document.querySelectorAll(`.stat-item`).forEach(el => statObserver.observe(el));
+
+            const tabBtns = document.querySelectorAll(`.tab-btn`);
+            const branchContents = document.querySelectorAll(`.branch-content`);
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener(`click`, () => {
+                    const targetTab = btn.getAttribute(`data-tab`);
+
+                    tabBtns.forEach(b => b.classList.remove(`active`));
+                    btn.classList.add(`active`);
+
+                    branchContents.forEach(content => {
+                        content.classList.remove(`active`);
+                        if (content.id === targetTab) {
+                            content.classList.add(`active`);
+                        }
+                    });
+                });
+            });
+
+            const carouselTrack = document.querySelector(`.carousel-track`);
+            const dots = document.querySelectorAll(`.dot`);
+            let currentIndex = 0;
+            let autoScrollInterval;
+
+            function updateCarousel() {
+                const cardWidth = 350 + 32;
+                carouselTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle(`active`, index === currentIndex);
+                });
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % 6;
+                updateCarousel();
+            }
+
+            function startAutoScroll() {
+                autoScrollInterval = setInterval(nextSlide, 3000);
+            }
+
+            function stopAutoScroll() {
+                clearInterval(autoScrollInterval);
+            }
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener(`click`, () => {
+                    currentIndex = index;
+                    updateCarousel();
+                    stopAutoScroll();
+                    startAutoScroll();
+                });
+            });
+
+            carouselTrack.addEventListener(`mouseenter`, stopAutoScroll);
+            carouselTrack.addEventListener(`mouseleave`, startAutoScroll);
+
+            startAutoScroll();
+
+            document.querySelectorAll(`a[href^="#"]`).forEach(anchor => {
+                anchor.addEventListener(`click`, function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute(`href`));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: `smooth`,
+                            block: `start`
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="https://cdn.kuse.ai/sdk.prd.js"></script>
+</body>
+</html>
