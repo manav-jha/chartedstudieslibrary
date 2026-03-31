@@ -1,17 +1,31 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chartered Studies Library - Premium Study Space for CA, CS, CMA &amp; UPSC Aspirants</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <title>Chartered Studies Library - Premium Study Space for CA, CS, CMA &amp; UPSC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com">
+function redirectWhatsApp(branch) {
+    const MUMBAI_WA = '919152837001';
+    const PATNA_WA = '918521059240';
 
+    let number, message;
+
+    if (branch === 'mumbai') {
+        number = MUMBAI_WA;
+        message = "Hi, I want to book a seat at Chartered Studies Library - Mumbai Branch. Please share details.";
+    } else {
+        number = PATNA_WA;
+        message = "Hi, I want to book a seat at Chartered Studies Library - Patna Branch. Please share details.";
+    }
+
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/${number}?text=${encoded}`, '_blank');
+
+    closeModal();
+}
+
+</script>
+    <style>
         :root {
             --teal-500: #0D9488;
             --teal-600: #14B8A6;
@@ -23,172 +37,133 @@
             --whatsapp: #25D366;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--black-900);
             color: var(--white);
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
-            font-weight: 700;
         }
 
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--teal-500), var(--teal-600), var(--teal-400));
-            z-index: 9999;
-            width: 0%;
-            transition: width 0.1s ease;
+        html {
+            scroll-behavior: smooth;
         }
 
+        /* Navbar Styles */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 1rem 2rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: transparent;
+            transition: all 0.3s ease;
+            padding: 1.5rem 0;
         }
 
         .navbar.scrolled {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .nav-container {
-            max-width: 1400px;
+        .navbar-container {
+            max-width: 1280px;
             margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
         .logo-img {
-            height: 50px;
+            height: 45px;
             width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             align-items: center;
+            list-style: none;
         }
 
         .nav-links a {
             color: var(--white);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            opacity: 0.9;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--teal-400);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
-            opacity: 1;
             color: var(--teal-400);
         }
 
-        .cta-btn {
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
-            border: none;
-            border-radius: 8px;
-            color: var(--white);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
-        .cta-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.4);
-        }
-
-        .hamburger {
+        .mobile-menu-btn {
             display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--white);
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 300px;
-            height: 100vh;
-            background: rgba(17, 17, 17, 0.98);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 6rem 2rem 2rem;
-            transition: right 0.3s ease;
-            z-index: 999;
-            border-left: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        .mobile-menu a {
-            display: block;
+            background: none;
+            border: none;
             color: var(--white);
-            text-decoration: none;
-            padding: 1rem 0;
-            font-weight: 500;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
 
-        .mobile-menu a:hover {
-            color: var(--teal-400);
-            padding-left: 1rem;
-        }
-
-        .hero {
+        /* Hero Section */
+        .hero-section {
             position: relative;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            padding: 8rem 2rem 4rem;
+            padding-top: 80px;
         }
 
-        .hero-bg {
+        .hero-background {
             position: absolute;
             top: 0;
             left: 0;
@@ -197,11 +172,11 @@
             z-index: 0;
         }
 
-        .hero-bg img {
+        .hero-background img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: blur(3px);
+            opacity: 0.15;
         }
 
         .hero-overlay {
@@ -210,7 +185,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(13, 148, 136, 0.2));
+            background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(13,148,136,0.2) 100%);
             z-index: 1;
         }
 
@@ -226,64 +201,77 @@
         .hero-content {
             position: relative;
             z-index: 3;
-            max-width: 1200px;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
             text-align: center;
         }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            line-height: 1.1;
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--white), var(--teal-400));
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--white) 0%, var(--teal-400) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            animation: fadeInUp 1s ease;
         }
 
-        .hero p {
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            opacity: 0.9;
-            margin-bottom: 2.5rem;
-            max-width: 800px;
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 3rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            animation: fadeInUp 1s ease 0.4s both;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.6s both;
         }
 
         .btn-primary {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
-            border: none;
-            border-radius: 10px;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-600) 100%);
             color: var(--white);
+            border: none;
+            border-radius: 50px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.125rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
             text-decoration: none;
             display: inline-block;
         }
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(13, 148, 136, 0.5);
+            box-shadow: 0 6px 25px rgba(13, 148, 136, 0.6);
         }
 
         .btn-secondary {
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             background: transparent;
-            border: 2px solid var(--teal-400);
-            border-radius: 10px;
             color: var(--white);
+            border: 2px solid var(--teal-400);
+            border-radius: 50px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.125rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
@@ -291,79 +279,27 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(45, 212, 191, 0.1);
+            background: var(--teal-400);
             transform: translateY(-3px);
         }
 
-        .floating-badges {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 3rem;
+        /* Features Section */
+        .features-section {
+            padding: 6rem 2rem;
+            background: var(--black-800);
         }
 
-        .badge {
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            font-weight: 600;
-            animation: float 3s ease-in-out infinite;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .badge:nth-child(2) {
-            animation-delay: 1.5s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            max-width: 900px;
+        .section-container {
+            max-width: 1280px;
             margin: 0 auto;
         }
 
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--teal-400), var(--teal-600));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .stat-label {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            margin-top: 0.5rem;
-        }
-
-        section {
-            padding: 6rem 2rem;
-            position: relative;
-        }
-
         .section-title {
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: 3rem;
+            font-weight: 700;
             text-align: center;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--white), var(--teal-400));
+            background: linear-gradient(135deg, var(--white) 0%, var(--teal-400) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -371,105 +307,72 @@
 
         .section-subtitle {
             text-align: center;
-            font-size: 1.1rem;
-            opacity: 0.8;
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 4rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .feature-card {
+            background: var(--black-700);
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--teal-400);
-            box-shadow: 0 20px 60px rgba(13, 148, 136, 0.3);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-icon i {
-            width: 30px;
-            height: 30px;
-            color: var(--white);
-        }
-
-        .feature-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .feature-desc {
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        .reveal {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
             opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(30px);
         }
 
-        .reveal.active {
+        .feature-card.reveal {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
-        .stagger-5 { transition-delay: 0.5s; }
-        .stagger-6 { transition-delay: 0.6s; }
-
-        .branches-section {
-            background: linear-gradient(180deg, var(--black-900), var(--black-800));
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--teal-400);
+            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.3);
         }
 
-        .tab-switch {
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--white);
+        }
+
+        .feature-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Branches Section */
+        .branches-section {
+            padding: 6rem 2rem;
+            background: var(--black-900);
+        }
+
+        .branch-tabs {
             display: flex;
             justify-content: center;
-            margin-bottom: 3rem;
             gap: 1rem;
+            margin-bottom: 3rem;
         }
 
-        .tab-btn {
-            padding: 0.75rem 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .branch-tab {
+            padding: 1rem 3rem;
+            background: var(--black-700);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 50px;
             color: var(--white);
             font-weight: 600;
@@ -477,141 +380,254 @@
             transition: all 0.3s ease;
         }
 
-        .tab-btn.active {
-            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
-            border-color: transparent;
-            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.4);
+        .branch-tab.active {
+            background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-600) 100%);
+            border-color: var(--teal-400);
+        }
+
+        .branch-tab:hover {
+            border-color: var(--teal-400);
         }
 
         .branch-content {
             display: none;
-            animation: fadeIn 0.5s ease;
         }
 
         .branch-content.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .branch-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
+        .branch-details {
+            background: var(--black-700);
             padding: 3rem;
-            max-width: 1000px;
-            margin: 0 auto;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .branch-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .branch-location {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .branch-address {
-            opacity: 0.8;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .branch-highlights {
+        .branch-info {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
-        .highlight-item {
+        .info-item {
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            color: var(--teal-400);
+            margin-top: 0.25rem;
+        }
+
+        .info-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-content p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 6rem 2rem;
+            background: var(--black-800);
+        }
+
+        .pricing-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .pricing-tab {
+            padding: 1rem 3rem;
+            background: var(--black-700);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: var(--white);
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .highlight-item:hover {
-            background: rgba(13, 148, 136, 0.1);
-            transform: translateX(5px);
+        .pricing-tab.active {
+            background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-600) 100%);
+            border-color: var(--teal-400);
         }
 
-        .highlight-item i {
-            width: 20px;
-            height: 20px;
-            color: var(--teal-400);
+        .pricing-tab:hover {
+            border-color: var(--teal-400);
         }
 
-        .map-container {
-            width: 100%;
-            height: 400px;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .pricing-content {
+            display: none;
         }
 
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        .pricing-content.active {
+            display: block;
         }
 
-        .reviews-section {
-            background: var(--black-800);
-            overflow: hidden;
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
-        .carousel-container {
+        .pricing-card {
+            background: var(--black-700);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
             position: relative;
-            max-width: 1200px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .pricing-card.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--teal-400);
+            box-shadow: 0 10px 40px rgba(13, 148, 136, 0.3);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--teal-400);
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.1) 0%, var(--black-700) 100%);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-600) 100%);
+            color: var(--white);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .pricing-badge.popular {
+            background: linear-gradient(135deg, #F59E0B 0%, #F97316 100%);
+        }
+
+        .pricing-badge.try {
+            background: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+        }
+
+        .pricing-name {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .pricing-time {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .pricing-duration {
+            color: var(--teal-400);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-period {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--teal-400);
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-600) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.5);
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 6rem 2rem;
+            background: var(--black-900);
+        }
+
+        .reviews-carousel {
+            position: relative;
+            max-width: 1000px;
             margin: 0 auto;
             overflow: hidden;
         }
 
-        .carousel-track {
+        .reviews-track {
             display: flex;
-            gap: 2rem;
             transition: transform 0.5s ease;
         }
 
         .review-card {
-            min-width: 350px;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            min-width: 100%;
+            padding: 3rem;
+            background: var(--black-700);
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            transition: all 0.3s ease;
         }
 
-        .review-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(13, 148, 136, 0.2);
-        }
-
-        .review-stars {
-            color: #FFD700;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .review-text {
+        .review-content {
+            font-size: 1.25rem;
             line-height: 1.8;
-            margin-bottom: 1rem;
-            opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            font-style: italic;
         }
 
         .review-author {
@@ -620,242 +636,117 @@
             gap: 1rem;
         }
 
-        .author-avatar {
-            width: 50px;
-            height: 50px;
+        .review-avatar {
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-600) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
             font-weight: 700;
-            font-size: 1.2rem;
         }
 
-        .author-info {
-            flex: 1;
-        }
-
-        .author-name {
+        .review-info h4 {
+            font-size: 1.125rem;
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
 
-        .author-role {
-            opacity: 0.7;
-            font-size: 0.9rem;
+        .review-info p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.95rem;
         }
 
-        .carousel-dots {
+        .carousel-controls {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 1rem;
             margin-top: 2rem;
         }
 
-        .dot {
-            width: 10px;
-            height: 10px;
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .dot.active {
-            background: var(--teal-400);
-            width: 30px;
-            border-radius: 5px;
-        }
-
-        .pricing-section {
-            background: linear-gradient(180deg, var(--black-800), var(--black-900));
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto 3rem;
-        }
-
-        .pricing-card {
-            padding: 2.5rem 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--teal-400);
-        }
-
-        .pricing-card.featured {
-            border: 2px solid var(--teal-400);
-            box-shadow: 0 0 40px rgba(13, 148, 136, 0.3);
-        }
-
-        .pricing-card.featured::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--teal-500), var(--teal-600), var(--teal-400));
-        }
-
-        .pricing-badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .pricing-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .pricing-time {
-            opacity: 0.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .pricing-price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--teal-400);
-            margin-bottom: 0.5rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .pricing-period {
-            opacity: 0.7;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
-            border: none;
-            border-radius: 10px;
+            background: var(--black-700);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             color: var(--white);
-            font-weight: 600;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .pricing-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.4);
+        .carousel-btn:hover {
+            border-color: var(--teal-400);
+            background: var(--teal-400);
         }
 
-        .pricing-note {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* How It Works Section */
+        .how-it-works-section {
+            padding: 6rem 2rem;
+            background: var(--black-800);
         }
 
-        .pricing-note i {
-            width: 24px;
-            height: 24px;
-            color: var(--teal-400);
-            margin-right: 0.5rem;
-        }
-
-        .process-section {
-            background: var(--black-900);
-        }
-
-        .process-steps {
+        .steps-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 3rem;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
         }
 
-        .process-step {
+        .step-card {
             text-align: center;
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        .process-step::after {
-            content: '';
-            position: absolute;
-            top: 50px;
-            right: -1.5rem;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--teal-400), transparent);
-            z-index: -1;
+        .step-card.reveal {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .process-step:last-child::after {
-            display: none;
-        }
-
-        .process-icon {
-            width: 100px;
-            height: 100px;
+        .step-number {
+            width: 80px;
+            height: 80px;
             margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, var(--teal-500), var(--teal-600));
+            background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-600) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .process-step:hover .process-icon {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 15px 40px rgba(13, 148, 136, 0.5);
-        }
-
-        .process-icon i {
-            width: 40px;
-            height: 40px;
+            font-size: 2rem;
+            font-weight: 800;
             color: var(--white);
         }
 
-        .process-title {
+        .step-title {
             font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--white);
         }
 
-        .process-desc {
-            opacity: 0.8;
+        .step-description {
+            color: rgba(255, 255, 255, 0.7);
             line-height: 1.6;
         }
 
+        /* Community Section */
         .community-section {
+            padding: 6rem 2rem;
+            background: var(--black-900);
             position: relative;
-            padding: 8rem 2rem;
             overflow: hidden;
         }
 
-        .community-bg {
+        .community-background {
             position: absolute;
             top: 0;
             left: 0;
@@ -864,10 +755,11 @@
             z-index: 0;
         }
 
-        .community-bg img {
+        .community-background img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            opacity: 0.1;
         }
 
         .community-overlay {
@@ -876,74 +768,67 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(13, 148, 136, 0.3));
+            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(13,148,136,0.3) 100%);
             z-index: 1;
         }
 
         .community-content {
             position: relative;
             z-index: 2;
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
 
-        .community-highlights {
+        .community-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
             margin-top: 3rem;
         }
 
-        .community-item {
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .community-item:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .community-quote {
-            font-size: 1.5rem;
-            font-style: italic;
-            opacity: 0.9;
-            margin-top: 3rem;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 4px solid var(--teal-400);
-            border-radius: 10px;
-        }
-
-        .cta-section {
-            background: linear-gradient(135deg, var(--black-900), var(--teal-500), var(--teal-600));
-            background-size: 200% 200%;
-            animation: gradientShift 5s ease infinite;
-            padding: 6rem 2rem;
+        .stat-item {
             text-align: center;
         }
 
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--white) 0%, var(--teal-400) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
         }
 
-        .cta-headline {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            margin-bottom: 1rem;
-            font-family: 'Poppins', sans-serif;
+        .stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.125rem;
         }
 
-        .cta-subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--teal-500) 0%, var(--teal-600) 100%);
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .cta-description {
+            font-size: 1.25rem;
             margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.95);
         }
 
         .cta-buttons {
@@ -953,40 +838,33 @@
             flex-wrap: wrap;
         }
 
-        .btn-whatsapp {
-            padding: 1.25rem 2.5rem;
-            background: var(--whatsapp);
+        .btn-white {
+            padding: 1rem 2.5rem;
+            background: var(--white);
+            color: var(--teal-600);
             border: none;
-            border-radius: 10px;
-            color: var(--white);
+            border-radius: 50px;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.125rem;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
+            display: inline-block;
         }
 
-        .btn-whatsapp:hover {
+        .btn-white:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.3);
         }
 
-        .btn-whatsapp i {
-            width: 24px;
-            height: 24px;
-        }
-
-        footer {
-            background: var(--black-900);
+        /* Footer */
+        .footer {
             padding: 4rem 2rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--black-800);
         }
 
         .footer-content {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -995,83 +873,33 @@
         }
 
         .footer-section h3 {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            font-weight: 600;
             margin-bottom: 1.5rem;
-            color: var(--teal-400);
-        }
-
-        .footer-logo {
-            height: 60px;
-            margin-bottom: 1rem;
-        }
-
-        .footer-tagline {
-            opacity: 0.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links a {
             color: var(--white);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
             text-decoration: none;
-            opacity: 0.8;
-            transition: all 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
-        .footer-links a:hover {
-            opacity: 1;
+        .footer-section a:hover {
             color: var(--teal-400);
-            padding-left: 5px;
-        }
-
-        .footer-contact p {
-            margin-bottom: 0.75rem;
-            opacity: 0.8;
-            line-height: 1.6;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .social-icon:hover {
-            background: var(--teal-400);
-            transform: translateY(-5px);
-        }
-
-        .social-icon i {
-            width: 20px;
-            height: 20px;
         }
 
         .footer-bottom {
             text-align: center;
             padding-top: 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.7;
+            color: rgba(255, 255, 255, 0.6);
         }
 
+        /* WhatsApp Button */
         .whatsapp-float {
             position: fixed;
             bottom: 30px;
@@ -1083,1091 +911,1028 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            font-size: 2rem;
+            color: var(--white);
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
             cursor: pointer;
-            z-index: 1000;
-            animation: pulse 2s infinite;
             transition: all 0.3s ease;
+            z-index: 999;
+            text-decoration: none;
         }
 
         .whatsapp-float:hover {
             transform: scale(1.1);
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.7);
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
         }
 
-        .whatsapp-float i {
-            width: 32px;
-            height: 32px;
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--black-700);
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--teal-400);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
             color: var(--white);
         }
 
-        .whatsapp-tooltip {
-            position: absolute;
-            right: 70px;
+        .modal-description {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            padding: 1rem 2rem;
             background: var(--black-800);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
+            border: 2px solid var(--teal-400);
+            border-radius: 12px;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.125rem;
+            cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .whatsapp-float:hover .whatsapp-tooltip {
-            opacity: 1;
+        .modal-btn:hover {
+            background: var(--teal-400);
+            transform: translateY(-2px);
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+        /* Kuse Branding */
+        .kuse-branding {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+            z-index: 998;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .kuse-branding:hover {
+            color: var(--teal-400);
+        }
+
+        .kuse-branding svg {
+            height: 1.2em;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-            50% {
-                box-shadow: 0 5px 30px rgba(37, 211, 102, 0.8);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        
-        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
+        /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
 
-            .hamburger {
-                display: flex;
+            .mobile-menu-btn {
+                display: block;
             }
 
-            .hero {
-                padding: 6rem 1rem 3rem;
+            .hero-title {
+                font-size: 2.5rem;
             }
 
-            .hero h1 {
+            .hero-subtitle {
+                font-size: 1.25rem;
+            }
+
+            .section-title {
                 font-size: 2rem;
             }
 
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn-primary, .btn-secondary {
-                width: 100%;
-            }
-
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            section {
-                padding: 4rem 1rem;
-            }
-
+            .pricing-grid,
             .features-grid {
                 grid-template-columns: 1fr;
             }
 
-            .pricing-grid {
-                grid-template-columns: 1fr;
+            .hero-buttons,
+            .cta-buttons {
+                flex-direction: column;
             }
 
-            .process-steps {
-                grid-template-columns: 1fr;
+            .btn-primary,
+            .btn-secondary,
+            .btn-white {
+                width: 100%;
             }
 
-            .process-step::after {
-                display: none;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .carousel-track {
-                gap: 1rem;
-            }
-
-            .review-card {
-                min-width: 280px;
-            }
-        }
-
-        /* ===== Branch Selection Modal ===== */
-        .branch-modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .branch-modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .branch-modal {
-            background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
-            border: 1px solid rgba(45, 212, 191, 0.2);
-            border-radius: 24px;
-            padding: 2.5rem;
-            max-width: 480px;
-            width: 90%;
-            text-align: center;
-            transform: scale(0.85) translateY(20px);
-            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(13, 148, 136, 0.1);
-            position: relative;
-        }
-
-        .branch-modal-overlay.active .branch-modal {
-            transform: scale(1) translateY(0);
-        }
-
-        .branch-modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1.2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-
-        .branch-modal-close:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .branch-modal-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--teal-500), var(--teal-400));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.25rem;
-        }
-
-        .branch-modal-icon i {
-            width: 28px;
-            height: 28px;
-            color: #fff;
-        }
-
-        .branch-modal h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: #fff;
-        }
-
-        .branch-modal p {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-        }
-
-        .branch-modal-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .branch-modal-btn {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.5rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.04);
-            cursor: pointer;
-            transition: all 0.25s ease;
-            text-decoration: none;
-            color: #fff;
-        }
-
-        .branch-modal-btn:hover {
-            background: rgba(45, 212, 191, 0.08);
-            border-color: rgba(45, 212, 191, 0.4);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(13, 148, 136, 0.15);
-        }
-
-        .branch-modal-btn-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .branch-modal-btn-icon.mumbai {
-            background: linear-gradient(135deg, #0D9488, #14B8A6);
-        }
-
-        .branch-modal-btn-icon.patna {
-            background: linear-gradient(135deg, #7C3AED, #A78BFA);
-        }
-
-        .branch-modal-btn-icon i {
-            width: 22px;
-            height: 22px;
-            color: #fff;
-        }
-
-        .branch-modal-btn-info {
-            text-align: left;
-            flex: 1;
-        }
-
-        .branch-modal-btn-info strong {
-            display: block;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 2px;
-        }
-
-        .branch-modal-btn-info span {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.45);
-        }
-
-        .branch-modal-btn-arrow {
-            color: rgba(255, 255, 255, 0.3);
-            transition: all 0.2s ease;
-            font-size: 1.2rem;
-        }
-
-        .branch-modal-btn:hover .branch-modal-btn-arrow {
-            color: var(--teal-400);
-            transform: translateX(3px);
-        }
-
-        @media (max-width: 480px) {
-            .branch-modal {
-                padding: 2rem 1.5rem;
-                border-radius: 20px;
-            }
-
-            .branch-modal h3 {
-                font-size: 1.25rem;
+            .kuse-branding {
+                bottom: 100px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="scroll-progress"></div>
-
-    <nav class="navbar">
-        <div class="nav-container">
-            <img src="https://api.kuse.ai/api/folder/v1/file/2d9210b119ba55de511155d1b8ed88dfc995d50e0b9085d036bafc1620ddf0e6_2774109.png" alt="Chartered Studies Library Logo" class="logo-img">
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#branches">Branches</a>
-                <a href="#reviews">Reviews</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="javascript:void(0)" class="cta-btn" onclick="openBranchModal('Hi, I would like to book a Free Trial at Chartered Studies Library. Please share the details!')">Book Free Trial</a>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="logo-container">
+                <img src="https://api.kuse.ai/api/folder/v1/file/2d9210b119ba55de511155d1b8ed88dfc995d50e0b9085d036bafc1620ddf0e6_2774109.png" alt="Chartered Studies Library Logo" class="logo-img">
+                <span class="logo-text">Chartered Studies</span>
             </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#branches">Branches</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
         </div>
     </nav>
 
-    <div class="mobile-menu">
-        <a href="#features">Features</a>
-        <a href="#branches">Branches</a>
-        <a href="#reviews">Reviews</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="javascript:void(0)" onclick="openBranchModal('Hi, I would like to book a Free Trial at Chartered Studies Library. Please share the details!')">Book Free Trial</a>
-    </div>
-
-    <section class="hero">
-        <div class="hero-bg">
-            <img src="https://api.kuse.ai/api/folder/v1/file/e071b2a1ed0a2af2cb333aadba8398225c3c4520defe8ab0d859b8a4f7e5950e_2774116.jpg" alt="Chartered Studies Library Interior">
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-background">
+            <img src="https://api.kuse.ai/api/folder/v1/file/e071b2a1ed0a2af2cb333aadba8398225c3c4520defe8ab0d859b8a4f7e5950e_2774116.jpg" alt="Study Environment">
         </div>
         <div class="hero-overlay"></div>
         <canvas id="particles-canvas"></canvas>
         <div class="hero-content">
-            <h1>Your Ultimate Study Space for Serious Aspirants</h1>
-            <p>Distraction-free, premium study environments in Mumbai &amp; Patna — where focused minds achieve greatness.</p>
+            <h1 class="hero-title">Chartered Studies Library</h1>
+            <p class="hero-subtitle">Premium Study Space for CA, CS, CMA &amp; UPSC Aspirants</p>
+            <p class="hero-description">Experience the perfect environment for focused learning with state-of-the-art facilities, comfortable seating, and a community of dedicated students in Mumbai and Patna.</p>
             <div class="hero-buttons">
-                <a href="javascript:void(0)" class="btn-primary" onclick="openBranchModal('Hi, I would like to book a Free Trial at Chartered Studies Library. Please share the details!')">Book Free Trial</a>
-                <a href="#pricing" class="btn-secondary">Explore Plans</a>
-            </div>
-            <div class="floating-badges">
-                <div class="badge">⭐ 4.9 Rating — Mumbai</div>
-                <div class="badge">⭐ 5.0 Rating — Patna</div>
-            </div>
-            <div class="hero-stats">
-                <div class="stat-item reveal">
-                    <div class="stat-number" data-target="500">0</div>
-                    <div class="stat-label">Students</div>
-                </div>
-                <div class="stat-item reveal">
-                    <div class="stat-number" data-target="4.9">0</div>
-                    <div class="stat-label">Rating</div>
-                </div>
-                <div class="stat-item reveal">
-                    <div class="stat-number" data-target="2">0</div>
-                    <div class="stat-label">Branches</div>
-                </div>
-                <div class="stat-item reveal">
-                    <div class="stat-number" data-target="24">0</div>
-                    <div class="stat-label">7 Access</div>
-                </div>
+                <button class="btn-primary" onclick="openModal()">Book Your Seat</button>
+                <a href="#pricing" class="btn-secondary">View Plans</a>
             </div>
         </div>
     </section>
 
-    <section id="features">
-        <div class="container">
-            <h2 class="section-title reveal">Why Chartered Studies Library?</h2>
-            <p class="section-subtitle reveal">Everything you need for distraction-free, productive study sessions</p>
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="section-container">
+            <h2 class="section-title">Why Choose Us?</h2>
+            <p class="section-subtitle">Premium facilities designed for serious students</p>
             <div class="features-grid">
-                <div class="feature-card reveal stagger-1">
-                    <div class="feature-icon">
-                        <i data-lucide="map-pin"></i>
-                    </div>
-                    <h3 class="feature-title">Prime location</h3>
-                    <p class="feature-desc">Easy access to students</p>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3 class="feature-title">Prime Location</h3>
+                    <p class="feature-description">Strategically located in the heart of Mumbai and Patna with easy access to public transport and essential amenities.</p>
                 </div>
-                <div class="feature-card reveal stagger-2">
-                    <div class="feature-icon">
-                        <i data-lucide="wind"></i>
-                    </div>
-                    <h3 class="feature-title">Fully Air Conditioned</h3>
-                    <p class="feature-desc">Comfortable temperature year-round</p>
+                <div class="feature-card">
+                    <div class="feature-icon">❄️</div>
+                    <h3 class="feature-title">Air Conditioned</h3>
+                    <p class="feature-description">Fully air-conditioned spaces maintained at optimal temperature for comfortable studying year-round.</p>
                 </div>
-                <div class="feature-card reveal stagger-3">
-                    <div class="feature-icon">
-                        <i data-lucide="shield-check"></i>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📹</div>
                     <h3 class="feature-title">CCTV Surveillance</h3>
-                    <p class="feature-desc">24/7 security monitoring</p>
+                    <p class="feature-description">24/7 CCTV monitoring ensuring complete safety and security for all our members.</p>
                 </div>
-                <div class="feature-card reveal stagger-4">
-                    <div class="feature-icon">
-                        <i data-lucide="wifi"></i>
-                    </div>
-                    <h3 class="feature-title">High-Speed 5G WiFi</h3>
-                    <p class="feature-desc">Seamless connectivity for online prep</p>
+                <div class="feature-card">
+                    <div class="feature-icon">📶</div>
+                    <h3 class="feature-title">High-Speed WiFi</h3>
+                    <p class="feature-description">Complimentary high-speed internet access for online research and digital learning resources.</p>
                 </div>
-                <div class="feature-card reveal stagger-5">
-                    <div class="feature-icon">
-                        <i data-lucide="plug"></i>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
                     <h3 class="feature-title">Power Sockets</h3>
-                    <p class="feature-desc">Charge laptops &amp; phones at every seat</p>
+                    <p class="feature-description">Individual power outlets at every seat for laptops, tablets, and charging devices.</p>
                 </div>
-                <div class="feature-card reveal stagger-6">
-                    <div class="feature-icon">
-                        <i data-lucide="droplets"></i>
-                    </div>
-                    <h3 class="feature-title">RO Drinking Water</h3>
-                    <p class="feature-desc">Pure, clean water always available</p>
+                <div class="feature-card">
+                    <div class="feature-icon">💧</div>
+                    <h3 class="feature-title">RO Water</h3>
+                    <p class="feature-description">Pure drinking water available throughout the day with RO purification system.</p>
                 </div>
-                <div class="feature-card reveal stagger-1">
-                    <div class="feature-icon">
-                        <i data-lucide="volume-x"></i>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤫</div>
                     <h3 class="feature-title">Zero Disturbance</h3>
-                    <p class="feature-desc">Strict silence policy enforced</p>
+                    <p class="feature-description">Strict silence policy and dedicated study zones for maximum concentration and productivity.</p>
                 </div>
-                <div class="feature-card reveal stagger-2">
-                    <div class="feature-icon">
-                        <i data-lucide="armchair"></i>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🪑</div>
                     <h3 class="feature-title">Comfortable Seating</h3>
-                    <p class="feature-desc">Ergonomic chairs for long sessions</p>
+                    <p class="feature-description">Ergonomic chairs and spacious desks designed for long study sessions without fatigue.</p>
                 </div>
-                
-                    
-                <div class="feature-card reveal stagger-4">
-                    <div class="feature-icon">
-                        <i data-lucide="wallet"></i>
-                    </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
                     <h3 class="feature-title">Most Affordable</h3>
-                    <p class="feature-desc">Premium experience at student-friendly prices</p>
+                    <p class="feature-description">Premium facilities at competitive prices with flexible plans to suit every budget.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="branches" class="branches-section">
-        <div class="container">
-            <h2 class="section-title reveal">Our Branches</h2>
-            <p class="section-subtitle reveal">Premium study spaces in two major cities</p>
-            <div class="tab-switch reveal">
-                <button class="tab-btn active" data-tab="mumbai">Mumbai</button>
-                <button class="tab-btn" data-tab="patna">Patna</button>
+    <!-- Branches Section -->
+    <section class="branches-section" id="branches">
+        <div class="section-container">
+            <h2 class="section-title">Our Branches</h2>
+            <p class="section-subtitle">Choose your preferred location</p>
+            <div class="branch-tabs">
+                <button class="branch-tab active" onclick="switchBranch('mumbai')">Mumbai</button>
+                <button class="branch-tab" onclick="switchBranch('patna')">Patna</button>
             </div>
-            <div id="mumbai" class="branch-content active">
-                <div class="branch-card reveal">
-                    <div class="branch-header">
-                        <h3 class="branch-location">Mulund West, Mumbai</h3>
-                        <p class="branch-address">7th Floor, APT Plaza, Above Ednovate Classes, Behind Atithi Restaurant, Near Mulund West Railway Station, Mumbai 400080</p>
+            <div class="branch-content active" id="mumbai-branch">
+                <div class="branch-details">
+                    <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem; text-align: center;">Mumbai Branch</h3>
+                    <div class="branch-info">
+                        <div class="info-item">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <h3>Address</h3>
+                                <p>7th Floor, APT Plaza, JSD, behind Atithi Restaurant, near Mulund Railway Station, Siddharth Nagar, Mulund West, Mumbai, Maharashtra 400080</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">⏰</div>
+                            <div class="info-content">
+                                <h3>Operating Hours</h3>
+                                <p>24×7 Access with flexible batch timings from 7 AM to 11 PM. Overnight slots available for night owls.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <h3>Contact</h3>
+                                <p>Phone: +91 9152837001<br>WhatsApp: Available for instant queries</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">🎯</div>
+                            <div class="info-content">
+                                <h3>Capacity</h3>
+                                <p>Spacious library with 100+ seats, separate reading rooms, and dedicated zones for different study needs.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="branch-highlights">
-                        <div class="highlight-item">
-                            <i data-lucide="map-pin"></i>
-                            <span>1-min walk from station</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i data-lucide="clock"></i>
-                            <span>6-hour flexible slots</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i data-lucide="star"></i>
-                            <span>4.9★ Google Rating</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i data-lucide="building"></i>
-                            <span>7th Floor premium space</span>
-                        </div>
-                    </div>
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.5!2d72.9567!3d19.1746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDEwJzI4LjYiTiA3MsKwNTcnMjQuMSJF!5e0!3m2!1sen!2sin!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+                    <div style="margin-top: 2rem; border-radius: 16px; overflow: hidden; height: 400px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.5!2d72.9567!3d19.1746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDEwJzI4LjYiTiA3MsKwNTcnMjQuMSJF!5e0!3m2!1sen!2sin!4v1234567890" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
-            <div id="patna" class="branch-content">
-                <div class="branch-card reveal">
-                    <div class="branch-header">
-                        <h3 class="branch-location">Kankarbagh, Patna</h3>
-                        <p class="branch-address">Kankarbagh Main Road, Patna, Bihar</p>
+            <div class="branch-content" id="patna-branch">
+                <div class="branch-details">
+                    <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: 2rem; text-align: center;">Patna Branch</h3>
+                    <div class="branch-info">
+                        <div class="info-item">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <h3>Address</h3>
+                                <p>Kankarbagh Main Road, Patna, Bihar</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">⏰</div>
+                            <div class="info-content">
+                                <h3>Operating Hours</h3>
+                                <p>Full-time access from 6 AM to 5 AM next day. Flexible slots available to suit your schedule.</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <h3>Contact</h3>
+                                <p>Phone: +91 9152837001<br>WhatsApp: Quick response for all inquiries</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">🎯</div>
+                            <div class="info-content">
+                                <h3>Capacity</h3>
+                                <p>Well-equipped facility with 80+ seats, comfortable study areas, and modern amenities for focused learning.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="branch-highlights">
-                        <div class="highlight-item">
-                            <i data-lucide="maximize"></i>
-                            <span>Spacious study area</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i data-lucide="lock"></i>
-                            <span>Locker facility available</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i data-lucide="star"></i>
-                            <span>5.0★ Rating</span>
-                        </div>
-                        <div class="highlight-item">
-                            <i data-lucide="award"></i>
-                            <span>Best environment in Patna</span>
-                        </div>
-                    </div>
-                    <div class="map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.5!2d85.1376!3d25.5941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDM1JzM4LjgiTiA4NcKwMDgnMTUuNCJF!5e0!3m2!1sen!2sin!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+                    <div style="margin-top: 2rem; border-radius: 16px; overflow: hidden; height: 400px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.5!2d85.1376!3d25.5941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDM1JzM4LjgiTiA4NcKwMDgnMTUuNCJF!5e0!3m2!1sen!2sin!4v1234567890" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="reviews" class="reviews-section">
-        <div class="container">
-            <h2 class="section-title reveal">What Our Students Say</h2>
-            <p class="section-subtitle reveal">Join 500+ students who transformed their study routine</p>
-            <div class="carousel-container">
-                <div class="carousel-track">
-                    <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"The most peaceful library I've ever studied in. Perfect for CA exam prep. Zero distractions!"</p>
-                        <div class="review-author">
-                            <div class="author-avatar">RS</div>
-                            <div class="author-info">
-                                <div class="author-name">Rahul S.</div>
-                                <div class="author-role">CA Aspirant</div>
-                            </div>
-                        </div>
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="section-container">
+            <h2 class="section-title">Flexible Pricing Plans</h2>
+            <p class="section-subtitle">Choose the plan that works best for you</p>
+            <div class="pricing-tabs">
+                <button class="pricing-tab active" onclick="switchPricing('mumbai')">Mumbai Plans</button>
+                <button class="pricing-tab" onclick="switchPricing('patna')">Patna Plans</button>
+            </div>
+            <div class="pricing-content active" id="mumbai-pricing">
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Batch 1</h3>
+                        <p class="pricing-time">7 AM – 12 PM</p>
+                        <p class="pricing-duration">5 Hours Daily</p>
+                        <div class="pricing-price">₹1,500</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Morning study slot</li>
+                            <li>All premium amenities</li>
+                            <li>WiFi &amp; Power backup</li>
+                            <li>AC environment</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('mumbai', 'Batch 1 (7 AM – 12 PM, ₹1,500/month)')">Choose Plan</button>
                     </div>
-                    <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"Affordable, clean, and the WiFi is blazing fast. I practically live here during exam season."</p>
-                        <div class="review-author">
-                            <div class="author-avatar">PM</div>
-                            <div class="author-info">
-                                <div class="author-name">Priya M.</div>
-                                <div class="author-role">CS Student</div>
-                            </div>
-                        </div>
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Batch 2</h3>
+                        <p class="pricing-time">12 PM – 6 PM</p>
+                        <p class="pricing-duration">6 Hours Daily</p>
+                        <div class="pricing-price">₹1,500</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Afternoon study slot</li>
+                            <li>All premium amenities</li>
+                            <li>WiFi &amp; Power backup</li>
+                            <li>AC environment</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('mumbai', 'Batch 2 (12 PM – 6 PM, ₹1,500/month)')">Choose Plan</button>
                     </div>
-                    <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"The individual cabins are a game-changer. I can focus for hours without any disturbance."</p>
-                        <div class="review-author">
-                            <div class="author-avatar">AK</div>
-                            <div class="author-info">
-                                <div class="author-name">Amit K.</div>
-                                <div class="author-role">UPSC Aspirant</div>
-                            </div>
-                        </div>
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Batch 3</h3>
+                        <p class="pricing-time">6 PM – 11 PM</p>
+                        <p class="pricing-duration">5 Hours Daily</p>
+                        <div class="pricing-price">₹1,500</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Evening study slot</li>
+                            <li>All premium amenities</li>
+                            <li>WiFi &amp; Power backup</li>
+                            <li>AC environment</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('mumbai', 'Batch 3 (6 PM – 11 PM, ₹1,500/month)')">Choose Plan</button>
                     </div>
-                    <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"Best library in Mulund, hands down. AC, power sockets, and great vibes."</p>
-                        <div class="review-author">
-                            <div class="author-avatar">SD</div>
-                            <div class="author-info">
-                                <div class="author-name">Sneha D.</div>
-                                <div class="author-role">CMA Student</div>
-                            </div>
-                        </div>
+                    <div class="pricing-card">
+                        <span class="pricing-badge popular">Popular</span>
+                        <h3 class="pricing-name">Any 2 Batch</h3>
+                        <p class="pricing-time">Any 2 Batches</p>
+                        <p class="pricing-duration">10-11 Hours Daily</p>
+                        <div class="pricing-price">₹2,500</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Choose any 2 slots</li>
+                            <li>Maximum flexibility</li>
+                            <li>All premium amenities</li>
+                            <li>Best value for regulars</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('mumbai', 'Any 2 Batch (₹2,500/month)')">Choose Plan</button>
                     </div>
-                    <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"The Patna branch is incredible. Spacious, well-maintained, and the staff is super helpful."</p>
-                        <div class="review-author">
-                            <div class="author-avatar">VR</div>
-                            <div class="author-info">
-                                <div class="author-name">Vikash R.</div>
-                                <div class="author-role">CA Student</div>
-                            </div>
-                        </div>
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Overnight Slot</h3>
+                        <p class="pricing-time">11 PM – 6 AM</p>
+                        <p class="pricing-duration">7 Hours Daily</p>
+                        <div class="pricing-price">₹1,200</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Night owl special</li>
+                            <li>Peaceful environment</li>
+                            <li>All amenities available</li>
+                            <li>Perfect for late studiers</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('mumbai', 'Overnight Slot (11 PM – 6 AM, ₹1,200/month)')">Choose Plan</button>
                     </div>
-                    <div class="review-card">
-                        <div class="review-stars">★★★★★</div>
-                        <p class="review-text">"24/7 access is a blessing. I study late nights and this place never disappoints."</p>
-                        <div class="review-author">
-                            <div class="author-avatar">NP</div>
-                            <div class="author-info">
-                                <div class="author-name">Neha P.</div>
-                                <div class="author-role">Law Student</div>
-                            </div>
-                        </div>
+                    <div class="pricing-card featured">
+                        <span class="pricing-badge">Best Value</span>
+                        <h3 class="pricing-name">Scholars Membership</h3>
+                        <p class="pricing-time">24×7 Any Time</p>
+                        <p class="pricing-duration">Unlimited Access</p>
+                        <div class="pricing-price">₹3,200</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Study anytime, anywhere</li>
+                            <li>Complete flexibility</li>
+                            <li>Priority seating</li>
+                            <li>All premium amenities</li>
+                            <li>Maximum savings</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('mumbai', 'Scholars Membership (24×7, ₹3,200/month)')">Choose Plan</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Weekend Plan</h3>
+                        <p class="pricing-time">Sat-Sun 10AM–10PM</p>
+                        <p class="pricing-duration">12 Hours/Day</p>
+                        <div class="pricing-price">₹1,800</div>
+                        <p class="pricing-period">for 8 weekends</p>
+                        <ul class="pricing-features">
+                            <li>Perfect for working professionals</li>
+                            <li>Full day access on weekends</li>
+                            <li>All amenities included</li>
+                            <li>2 months validity</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('mumbai', 'Weekend Plan (Sat-Sun 10AM–10PM, ₹1,800 for 8 weekends)')">Choose Plan</button>
+                    </div>
+                    <div class="pricing-card">
+                        <span class="pricing-badge try">Try First</span>
+                        <h3 class="pricing-name">One Day Plan</h3>
+                        <p class="pricing-time">10 AM – 10 PM</p>
+                        <p class="pricing-duration">12 Hours</p>
+                        <div class="pricing-price">₹250</div>
+                        <p class="pricing-period">/day</p>
+                        <ul class="pricing-features">
+                            <li>Trial before commitment</li>
+                            <li>Full day access</li>
+                            <li>All amenities available</li>
+                            <li>No commitment needed</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('mumbai', 'One Day Plan (10 AM – 10 PM, ₹250/day)')">Choose Plan</button>
                     </div>
                 </div>
-                <div class="carousel-dots">
-                    <span class="dot active"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+            </div>
+            <div class="pricing-content" id="patna-pricing">
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Morning Plan</h3>
+                        <p class="pricing-time">6 AM – 11 AM</p>
+                        <p class="pricing-duration">5 Hours Daily</p>
+                        <div class="pricing-price">₹500</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Early morning slot</li>
+                            <li>All premium amenities</li>
+                            <li>WiFi &amp; Power backup</li>
+                            <li>AC environment</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('patna', 'Morning Plan (6 AM – 11 AM, ₹500/month)')">Choose Plan</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Afternoon Plan</h3>
+                        <p class="pricing-time">11 AM – 4 PM</p>
+                        <p class="pricing-duration">5 Hours Daily</p>
+                        <div class="pricing-price">₹550</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Afternoon study slot</li>
+                            <li>All premium amenities</li>
+                            <li>WiFi &amp; Power backup</li>
+                            <li>AC environment</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('patna', 'Afternoon Plan (11 AM – 4 PM, ₹550/month)')">Choose Plan</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Evening Plan</h3>
+                        <p class="pricing-time">4 PM – 9 PM</p>
+                        <p class="pricing-duration">5 Hours Daily</p>
+                        <div class="pricing-price">₹550</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Evening study slot</li>
+                            <li>All premium amenities</li>
+                            <li>WiFi &amp; Power backup</li>
+                            <li>AC environment</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('patna', 'Evening Plan (4 PM – 9 PM, ₹550/month)')">Choose Plan</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Night Plan</h3>
+                        <p class="pricing-time">9 PM – 5 AM</p>
+                        <p class="pricing-duration">8 Hours Daily</p>
+                        <div class="pricing-price">₹500</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Night study slot</li>
+                            <li>Extended hours</li>
+                            <li>All amenities available</li>
+                            <li>Perfect for night studiers</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('patna', 'Night Plan (9 PM – 5 AM, ₹500/month)')">Choose Plan</button>
+                    </div>
+                    <div class="pricing-card">
+                        <span class="pricing-badge popular">Popular</span>
+                        <h3 class="pricing-name">Combo Plan</h3>
+                        <p class="pricing-time">Any 2 Slots</p>
+                        <p class="pricing-duration">10 Hours Daily</p>
+                        <div class="pricing-price">₹900</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Choose any 2 slots</li>
+                            <li>Maximum flexibility</li>
+                            <li>All premium amenities</li>
+                            <li>Best value combo</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('patna', 'Combo Plan (Any 2 Slots, ₹900/month)')">Choose Plan</button>
+                    </div>
+                    <div class="pricing-card">
+                        <h3 class="pricing-name">Scholars Plan</h3>
+                        <p class="pricing-time">6 AM – 9 PM</p>
+                        <p class="pricing-duration">15 Hours Daily</p>
+                        <div class="pricing-price">₹1,200</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>Extended access</li>
+                            <li>Full day availability</li>
+                            <li>All premium amenities</li>
+                            <li>Perfect for serious students</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('patna', 'Scholars Plan (6 AM – 9 PM, ₹1,200/month)')">Choose Plan</button>
+                    </div>
+                    <div class="pricing-card featured">
+                        <span class="pricing-badge">Best Value</span>
+                        <h3 class="pricing-name">VIP Plan</h3>
+                        <p class="pricing-time">Full Time (24 Hours)</p>
+                        <p class="pricing-duration">Unlimited Access</p>
+                        <div class="pricing-price">₹1,500</div>
+                        <p class="pricing-period">/month</p>
+                        <ul class="pricing-features">
+                            <li>24×7 access</li>
+                            <li>Study anytime</li>
+                            <li>Priority seating</li>
+                            <li>All premium amenities</li>
+                            <li>Maximum flexibility</li>
+                        </ul>
+                        <button class="pricing-btn" onclick="contactWhatsApp('patna', 'VIP Plan (24 Hours, ₹1,500/month)')">Choose Plan</button>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="pricing" class="pricing-section">
-        <div class="container">
-            <h2 class="section-title reveal">Simple, Transparent Pricing</h2>
-            <p class="section-subtitle reveal">Most affordable premium study space in the area</p>
-            <div class="pricing-grid">
-                <div class="pricing-card reveal stagger-1">
-                    <h3 class="pricing-name">Batch 1</h3>
-                    <p class="pricing-time">7 AM – 12 PM</p>
-                    <div class="pricing-price">₹1,500</div>
-                    <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Batch 1 plan (7 AM – 12 PM, ₹1,500/month). Please share the details!')">Get Started</button>
-                </div>
-                <div class="pricing-card reveal stagger-2">
-                    <h3 class="pricing-name">Batch 2</h3>
-                    <p class="pricing-time">12 PM – 6 PM</p>
-                    <div class="pricing-price">₹1,500</div>
-                    <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Batch 2 plan (12 PM – 6 PM, ₹1,500/month). Please share the details!')">Get Started</button>
-                </div>
-                <div class="pricing-card reveal stagger-3">
-                    <h3 class="pricing-name">Batch 3</h3>
-                    <p class="pricing-time">6 PM – 11 PM</p>
-                    <div class="pricing-price">₹1,500</div>
-                    <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Batch 3 plan (6 PM – 11 PM, ₹1,500/month). Please share the details!')">Get Started</button>
-                </div>
-                <div class="pricing-card reveal stagger-4">
-                    <span class="pricing-badge">Popular</span>
-                    <h3 class="pricing-name">Any 2 Batch</h3>
-                    <p class="pricing-time">Any 2 Batches</p>
-                    <div class="pricing-price">₹2,500</div>
-                    <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Any 2 Batch plan (₹2,500/month). Please share the details!')">Get Started</button>
-                </div>
-                <div class="pricing-card reveal stagger-5">
-                    <h3 class="pricing-name">Overnight Slot</h3>
-                    <p class="pricing-time">11 PM – 6 AM</p>
-                    <div class="pricing-price">₹1,200</div>
-                    <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Overnight Slot plan (11 PM – 6 AM, ₹1,200/month). Please share the details!')">Get Started</button>
-                </div>
-                <div class="pricing-card featured reveal stagger-6">
-                    <span class="pricing-badge">Best Value</span>
-                    <h3 class="pricing-name">Scholars Membership</h3>
-                    <p class="pricing-time">24×7 Any Time</p>
-                    <div class="pricing-price">₹3,200</div>
-                    <p class="pricing-period">per month</p>
-                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Scholars Membership (24×7 Any Time, ₹3,200/month). Please share the details!')">Get Started</button>
-                </div>
-                <div class="pricing-card reveal stagger-1">
-                    <h3 class="pricing-name">Weekend Plan</h3>
-                    <p class="pricing-time">Sat-Sun, 10AM–10PM</p>
-                    <div class="pricing-price">₹1,800</div>
-                    <p class="pricing-period">for 8 weekends</p>
-                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the Weekend Plan (Sat-Sun, 10AM–10PM, ₹1,800 for 8 weekends). Please share the details!')">Get Started</button>
-                </div>
-                <div class="pricing-card reveal stagger-2">
-                    <span class="pricing-badge">Try First</span>
-                    <h3 class="pricing-name">One Day Plan</h3>
-                    <p class="pricing-time">10 AM – 10 PM</p>
-                    <div class="pricing-price">₹250</div>
-                    <p class="pricing-period">per day</p>
-                    <button class="pricing-btn" onclick="openBranchModal('Hi, I would like to know more about the One Day Plan (10 AM – 10 PM, ₹250/day). Please share the details!')">Get Started</button>
-                </div>
-            </div>
-            <div class="pricing-note reveal">
-                <p style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                    <span style="display: flex; align-items: center; gap: 0.5rem;">
-                        <i data-lucide="lightbulb"></i>
-                        Join with a friend &amp; both get ₹200 off!
-                    </span>
-                    <span style="opacity: 0.5;">|</span>
-                    <span>Pay for 2 months &amp; get 7 days FREE!</span>
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-it-works" class="process-section">
-        <div class="container">
-            <h2 class="section-title reveal">Get Started in 4 Simple Steps</h2>
-            <p class="section-subtitle reveal">Your journey to focused studying begins here</p>
-            <div class="process-steps">
-                <div class="process-step reveal stagger-1">
-                    <div class="process-icon">
-                        <i data-lucide="message-circle"></i>
+    <!-- Reviews Section -->
+    <section class="reviews-section" id="reviews">
+        <div class="section-container">
+            <h2 class="section-title">What Our Students Say</h2>
+            <p class="section-subtitle">Real experiences from our community</p>
+            <div class="reviews-carousel">
+                <div class="reviews-track" id="reviews-track">
+                    <div class="review-card">
+                        <p class="review-content">"The best decision I made for my CA preparation. The environment is perfect, facilities are top-notch, and the staff is very supportive. I cleared my exams on the first attempt thanks to the focused atmosphere here."</p>
+                        <div class="review-author">
+                            <div class="review-avatar">RK</div>
+                            <div class="review-info">
+                                <h4>Rahul Kumar</h4>
+                                <p>CA Final Student, Mumbai</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="process-title">Book Free Trial</h3>
-                    <p class="process-desc">WhatsApp us on +91 9152837001</p>
-                </div>
-                <div class="process-step reveal stagger-2">
-                    <div class="process-icon">
-                        <i data-lucide="building"></i>
+                    <div class="review-card">
+                        <p class="review-content">"I've tried multiple libraries but nothing compares to Chartered Studies. The 24×7 access is a game-changer for my UPSC preparation. The peaceful environment and comfortable seating help me study for long hours without fatigue."</p>
+                        <div class="review-author">
+                            <div class="review-avatar">PS</div>
+                            <div class="review-info">
+                                <h4>Priya Sharma</h4>
+                                <p>UPSC Aspirant, Mumbai</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="process-title">Visit the Library</h3>
-                    <p class="process-desc">Experience the environment firsthand</p>
-                </div>
-                <div class="process-step reveal stagger-3">
-                    <div class="process-icon">
-                        <i data-lucide="clipboard-list"></i>
+                    <div class="review-card">
+                        <p class="review-content">"Excellent infrastructure and very affordable pricing. The WiFi is fast, AC works perfectly, and the staff maintains cleanliness. The location is convenient with good connectivity. Highly recommend for CS students."</p>
+                        <div class="review-author">
+                            <div class="review-avatar">AM</div>
+                            <div class="review-info">
+                                <h4>Amit Mehta</h4>
+                                <p>CS Professional, Mumbai</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="process-title">Choose Your Plan</h3>
-                    <p class="process-desc">Pick the perfect plan for your schedule</p>
-                </div>
-                <div class="process-step reveal stagger-4">
-                    <div class="process-icon">
-                        <i data-lucide="rocket"></i>
+                    <div class="review-card">
+                        <p class="review-content">"The Patna branch is amazing! Clean, well-maintained, and the staff is very helpful. The VIP plan gives me complete freedom to study whenever I want. Best library in Patna for competitive exam preparation."</p>
+                        <div class="review-author">
+                            <div class="review-avatar">SK</div>
+                            <div class="review-info">
+                                <h4>Sanjay Kumar</h4>
+                                <p>CMA Student, Patna</p>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="process-title">Start Studying!</h3>
-                    <p class="process-desc">Begin your focused study journey</p>
+                    <div class="review-card">
+                        <p class="review-content">"Perfect place for serious students. Zero disturbance policy is strictly followed. The overnight slot is perfect for me as I prefer studying at night. All facilities are excellent and the price is very reasonable."</p>
+                        <div class="review-author">
+                            <div class="review-avatar">NP</div>
+                            <div class="review-info">
+                                <h4>Neha Patel</h4>
+                                <p>CA Intermediate, Mumbai</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <p class="review-content">"I love the flexible plans! The weekend plan works perfectly for me as I work during weekdays. The library is always clean, well-lit, and has a great study atmosphere. Worth every penny!"</p>
+                        <div class="review-author">
+                            <div class="review-avatar">VG</div>
+                            <div class="review-info">
+                                <h4>Vikram Gupta</h4>
+                                <p>Working Professional, Mumbai</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-controls">
+                    <button class="carousel-btn" onclick="previousReview()">‹</button>
+                    <button class="carousel-btn" onclick="nextReview()">›</button>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- How It Works Section -->
+    <section class="how-it-works-section">
+        <div class="section-container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get started in 4 simple steps</p>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Choose Your Plan</h3>
+                    <p class="step-description">Select the plan that best fits your study schedule and budget from our flexible options.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Contact Us</h3>
+                    <p class="step-description">Reach out via WhatsApp or phone to confirm availability and discuss your requirements.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Visit &amp; Register</h3>
+                    <p class="step-description">Visit our library, complete a quick registration process, and get your access card.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Start Studying</h3>
+                    <p class="step-description">Begin your focused study sessions in our premium environment and achieve your goals!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
     <section class="community-section">
-        <div class="community-bg">
+        <div class="community-background">
             <img src="https://api.kuse.ai/api/folder/v1/file/e071b2a1ed0a2af2cb333aadba8398225c3c4520defe8ab0d859b8a4f7e5950e_2774116.jpg" alt="Community">
         </div>
         <div class="community-overlay"></div>
         <div class="community-content">
-            <h2 class="section-title reveal">More Than Just a Library</h2>
-            <p class="section-subtitle reveal">We're a friendly community of ambitious students</p>
-            <div class="community-highlights">
-                <div class="community-item reveal stagger-1">
-                    <h3>Study Groups</h3>
+            <h2 class="section-title">Join Our Growing Community</h2>
+            <p class="section-subtitle">Be part of a network of successful professionals and aspirants</p>
+            <div class="community-stats">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Active Members</div>
                 </div>
-                <div class="community-item reveal stagger-2">
-                    <h3>Peer Learning</h3>
+                <div class="stat-item">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Premium Locations</div>
                 </div>
-                <div class="community-item reveal stagger-3">
-                    <h3>Exam Motivation</h3>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Success Rate</div>
                 </div>
-                <div class="community-item reveal stagger-4">
-                    <h3>Networking</h3>
-                </div>
-            </div>
-            <div class="community-quote reveal">
-                "We are not just a Library, but also a Friendly Community of Students :-)"
             </div>
         </div>
     </section>
 
+    <!-- CTA Section -->
     <section class="cta-section">
-        <div class="container">
-            <h2 class="cta-headline">Ready to Transform Your Study Routine?</h2>
-            <p class="cta-subtitle">Book your free one-day trial today and experience the difference</p>
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Start Your Journey?</h2>
+            <p class="cta-description">Join hundreds of successful students who chose Chartered Studies Library for their exam preparation. Book your seat today!</p>
             <div class="cta-buttons">
-                <a href="javascript:void(0)" class="btn-primary" onclick="openBranchModal('Hi, I would like to book a Free Trial at Chartered Studies Library. Please share the details!')">Book Free Trial</a>
-                <a href="javascript:void(0)" class="btn-whatsapp" onclick="openBranchModal('Hi, I would like to know more about Chartered Studies Library. Please share the details!')">
-                    <i data-lucide="message-circle"></i>
-                    Contact on WhatsApp
-                </a>
+                <button class="btn-white" onclick="openModal()">Book Your Seat Now</button>
+                <a class="btn-secondary" onclick="openModal()">Chat on WhatsApp</a>
             </div>
         </div>
     </section>
 
-    <footer>
+    <!-- Footer -->
+    <footer class="footer" id="contact">
         <div class="footer-content">
             <div class="footer-section">
-                <img src="https://api.kuse.ai/api/folder/v1/file/2d9210b119ba55de511155d1b8ed88dfc995d50e0b9085d036bafc1620ddf0e6_2774109.png" alt="Chartered Studies Library" class="footer-logo">
-                <p class="footer-tagline">Your Ultimate Study Space</p>
-                <div class="social-icons">
-                    <div class="social-icon"><i data-lucide="instagram"></i></div>
-                    <div class="social-icon"><i data-lucide="youtube"></i></div>
-                    <div class="social-icon"><i data-lucide="message-circle"></i></div>
-                    <div class="social-icon"><i data-lucide="linkedin"></i></div>
-                </div>
+                <h3>About Us</h3>
+                <p>Chartered Studies Library is a premium study space dedicated to providing the perfect environment for CA, CS, CMA, and UPSC aspirants to achieve their goals.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Mumbai Branch</h3>
+                <p>7th Floor, APT Plaza, JSD, behind Atithi Restaurant, near Mulund Railway Station, Siddharth Nagar, Mulund West, Mumbai, Maharashtra 400080</p>
+                <p>Phone: +91 9152837001</p>
+                <p>Open 24×7</p>
+            </div>
+            <div class="footer-section">
+                <h3>Patna Branch</h3>
+                <p>Opposite Swablambi Residency, Daudbigha, Kankarbagh Main Road, Post, near Amrita Hospital, BH Colony, Patna, Bihar 800026</p>
+                <p>Phone: +91 8521059240</p>
+                <p>Open 24×7</p>
             </div>
             <div class="footer-section">
                 <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#branches">Branches</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#reviews">Reviews</a></li>
-                </ul>
-            </div>
-            <div class="footer-section footer-contact">
-                <h3>Mumbai Branch</h3>
-                <p>7th Floor, APT Plaza, Above Ednovate Classes, Behind Atithi Restaurant, Near Mulund West Railway Station, Mumbai 400080</p>
-                <p><strong>Phone:</strong> +91 9152837001</p>
-            </div>
-            <div class="footer-section footer-contact">
-                <h3>Patna Branch</h3>
-                <p>Kankarbagh Main Road, Patna, Bihar</p>
-                <p><strong>Website:</strong> www.charteredstudies.in</p>
+                <a href="#features">Features</a>
+                <a href="#branches">Branches</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#reviews">Reviews</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 Chartered Studies Library. All rights reserved.</p>
-           
+            <p>© 2024 Chartered Studies Library. All rights reserved.</p>
         </div>
     </footer>
 
-    <a href="javascript:void(0)" class="whatsapp-float" onclick="openBranchModal('Hi, I would like to know more about Chartered Studies Library. Please share the details!')">
-        <span class="whatsapp-tooltip">Chat with us!</span>
-        <i data-lucide="message-circle"></i>
+    <!-- WhatsApp Float Button -->
+    <a onclick="openModal()" class="whatsapp-float">
+        💬
     </a>
 
     <!-- Branch Selection Modal -->
-    <div class="branch-modal-overlay" id="branchModal">
-        <div class="branch-modal">
-            <button class="branch-modal-close" onclick="closeBranchModal()">×</button>
-            <div class="branch-modal-icon">
-                <i data-lucide="map-pin"></i>
-            </div>
-            <h3>Select Your Branch</h3>
-            <p>Which location are you enquiring about?</p>
-            <div class="branch-modal-buttons">
-                <a href="#" class="branch-modal-btn" id="mumbaiBtn" onclick="selectBranch('mumbai'); return false;">
-                    <div class="branch-modal-btn-icon mumbai">
-                        <i data-lucide="building"></i>
-                    </div>
-                    <div class="branch-modal-btn-info">
-                        <strong>Mumbai Branch</strong>
-                        <span>Mulund West, near Railway Station</span>
-                    </div>
-                    <div class="branch-modal-btn-arrow">→</div>
-                </a>
-                <a href="#" class="branch-modal-btn" id="patnaBtn" onclick="selectBranch('patna'); return false;">
-                    <div class="branch-modal-btn-icon patna">
-                        <i data-lucide="building-2"></i>
-                    </div>
-                    <div class="branch-modal-btn-info">
-                        <strong>Patna Branch</strong>
-                        <span>Kankarbagh Main Road</span>
-                    </div>
-                    <div class="branch-modal-btn-arrow">→</div>
-                </a>
+    <div class="modal" id="branch-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <h2 class="modal-title">Select Your Branch</h2>
+            <p class="modal-description">Choose your preferred location to view pricing and book your seat</p>
+            <div class="modal-buttons">
+                <button class="modal-btn" onclick="redirectWhatsApp('mumbai')">📍 Mumbai Branch</button>
+                <button class="modal-btn" onclick="redirectWhatsApp('patna')">📍 Patna Branch</button>
             </div>
         </div>
     </div>
 
+   
     <script>
-        // ===== Branch Modal Logic =====
-        const MUMBAI_WA = '919152837001';
-        const PATNA_WA = '919152837001'; // Replace with actual Patna WhatsApp number
-        let pendingWaMessage = '';
+        // Navbar scroll effect
+        const navbar = document.getElementById(`navbar`);
+        window.addEventListener(`scroll`, () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add(`scrolled`);
+            } else {
+                navbar.classList.remove(`scrolled`);
+            }
+        });
 
-        function openBranchModal(message) {
-            pendingWaMessage = message || 'Hi, I would like to know more about Chartered Studies Library. Please share the details!';
-            document.getElementById('branchModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Particle animation
+        const canvas = document.getElementById(`particles-canvas`);
+        const ctx = canvas.getContext(`2d`);
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(45, 212, 191, 0.5)`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
 
-        function closeBranchModal() {
-            document.getElementById('branchModal').classList.remove('active');
-            document.body.style.overflow = '';
-            pendingWaMessage = '';
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener(`resize`, () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Branch switching
+        function switchBranch(branch) {
+            const tabs = document.querySelectorAll(`.branch-tab`);
+            const contents = document.querySelectorAll(`.branch-content`);
+            
+            tabs.forEach(tab => tab.classList.remove(`active`));
+            contents.forEach(content => content.classList.remove(`active`));
+            
+            event.target.classList.add(`active`);
+            document.getElementById(`${branch}-branch`).classList.add(`active`);
+        }
+
+        // Pricing switching
+        function switchPricing(branch) {
+            const tabs = document.querySelectorAll(`.pricing-tab`);
+            const contents = document.querySelectorAll(`.pricing-content`);
+            
+            tabs.forEach(tab => tab.classList.remove(`active`));
+            contents.forEach(content => content.classList.remove(`active`));
+            
+            event.target.classList.add(`active`);
+            document.getElementById(`${branch}-pricing`).classList.add(`active`);
+        }
+
+        // Modal functions
+        function openModal() {
+            document.getElementById(`branch-modal`).classList.add(`active`);
+        }
+
+        function closeModal() {
+            document.getElementById(`branch-modal`).classList.remove(`active`);
+        }
+
+        // Direct WhatsApp contact function
+        function contactWhatsApp(branch, plan) {
+            const MUMBAI_WA = '919152837001';
+            const PATNA_WA = '918521059240';
+            
+            const number = branch === 'mumbai' ? MUMBAI_WA : PATNA_WA;
+            const branchName = branch === 'mumbai' ? 'Mumbai' : 'Patna';
+            const message = `Hi, I would like to know more about the ${plan} at ${branchName} Branch. Please share the details!`;
+            const encoded = encodeURIComponent(message);
+            
+            window.open(`https://wa.me/${number}?text=${encoded}`, '_blank');
         }
 
         function selectBranch(branch) {
-            const number = branch === 'mumbai' ? MUMBAI_WA : PATNA_WA;
-            const branchLabel = branch === 'mumbai' ? 'Mumbai' : 'Patna';
-            let msg = pendingWaMessage;
-            if (!msg.toLowerCase().includes(branchLabel.toLowerCase())) {
-                const suffix = '(' + branchLabel + ' Branch). Please share the details!';
-                msg = msg.replace('Please share the details!', suffix);
-                if (msg === pendingWaMessage) {
-                    msg = '[' + branchLabel + ' Branch] ' + msg;
-                }
-            }
-            const encoded = encodeURIComponent(msg);
-            window.open('https://wa.me/' + number + '?text=' + encoded, '_blank');
-            closeBranchModal();
+            closeModal();
+            
+            // Switch to pricing section
+            const pricingSection = document.getElementById(`pricing`);
+            pricingSection.scrollIntoView({ behavior: `smooth` });
+            
+            // Wait for scroll to complete, then switch pricing tab
+            setTimeout(() => {
+                const tabs = document.querySelectorAll(`.pricing-tab`);
+                const contents = document.querySelectorAll(`.pricing-content`);
+                
+                tabs.forEach(tab => tab.classList.remove(`active`));
+                contents.forEach(content => content.classList.remove(`active`));
+                
+                tabs.forEach(tab => {
+                    if (tab.textContent.toLowerCase().includes(branch)) {
+                        tab.classList.add(`active`);
+                    }
+                });
+                
+                document.getElementById(`${branch}-pricing`).classList.add(`active`);
+            }, 800);
         }
 
-        // Close modal on overlay click
-        document.getElementById('branchModal').addEventListener('click', function(e) {
-            if (e.target === this) closeBranchModal();
+        // Close modal on outside click
+        window.addEventListener(`click`, (e) => {
+            const modal = document.getElementById(`branch-modal`);
+            if (e.target === modal) {
+                closeModal();
+            }
         });
 
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeBranchModal();
+        // Reviews carousel
+        let currentReview = 0;
+        const reviewsTrack = document.getElementById(`reviews-track`);
+        const reviewCards = document.querySelectorAll(`.review-card`);
+        const totalReviews = reviewCards.length;
+
+        function updateCarousel() {
+            const offset = -currentReview * 100;
+            reviewsTrack.style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextReview() {
+            currentReview = (currentReview + 1) % totalReviews;
+            updateCarousel();
+        }
+
+        function previousReview() {
+            currentReview = (currentReview - 1 + totalReviews) % totalReviews;
+            updateCarousel();
+        }
+
+        // Auto-advance carousel
+        setInterval(nextReview, 5000);
+
+        // Reveal animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: `0px 0px -100px 0px`
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(`reveal`);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll(`.feature-card, .pricing-card, .step-card`).forEach(el => {
+            observer.observe(el);
         });
-        document.addEventListener(`DOMContentLoaded`, function() {
-            if (typeof lucide !== `undefined`) {
-                lucide.createIcons();
-            }
 
-            const navbar = document.querySelector(`.navbar`);
-            const hamburger = document.querySelector(`.hamburger`);
-            const mobileMenu = document.querySelector(`.mobile-menu`);
-            const scrollProgress = document.querySelector(`.scroll-progress`);
-
-            window.addEventListener(`scroll`, () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add(`scrolled`);
-                } else {
-                    navbar.classList.remove(`scrolled`);
-                }
-
-                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrolled = (window.scrollY / windowHeight) * 100;
-                scrollProgress.style.width = scrolled + `%`;
-            });
-
-            hamburger.addEventListener(`click`, () => {
-                hamburger.classList.toggle(`active`);
-                mobileMenu.classList.toggle(`active`);
-            });
-
-            mobileMenu.querySelectorAll(`a`).forEach(link => {
-                link.addEventListener(`click`, () => {
-                    hamburger.classList.remove(`active`);
-                    mobileMenu.classList.remove(`active`);
-                });
-            });
-
-            const canvas = document.getElementById(`particles-canvas`);
-            const ctx = canvas.getContext(`2d`);
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const particles = [];
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    radius: Math.random() * 2 + 1
-                });
-            }
-
-            function animateParticles() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = `rgba(45, 212, 191, 0.5)`;
-
-                particles.forEach(particle => {
-                    particle.x += particle.vx;
-                    particle.y += particle.vy;
-
-                    if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
-                    if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
-
-                    ctx.beginPath();
-                    ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-                    ctx.fill();
-                });
-
-                ctx.strokeStyle = `rgba(45, 212, 191, 0.2)`;
-                ctx.lineWidth = 0.5;
-
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 100) {
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-
-                requestAnimationFrame(animateParticles);
-            }
-
-            animateParticles();
-
-            window.addEventListener(`resize`, () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            });
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add(`active`);
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            document.querySelectorAll(`.reveal`).forEach(el => observer.observe(el));
-
-            const statNumbers = document.querySelectorAll(`.stat-number`);
-            let animated = false;
-
-            const statObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !animated) {
-                        animated = true;
-                        statNumbers.forEach(stat => {
-                            const target = parseFloat(stat.getAttribute(`data-target`));
-                            const duration = 2000;
-                            const step = target / (duration / 16);
-                            let current = 0;
-
-                            const updateCounter = () => {
-                                current += step;
-                                if (current < target) {
-                                    stat.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(1);
-                                    requestAnimationFrame(updateCounter);
-                                } else {
-                                    stat.textContent = target % 1 === 0 ? target : target.toFixed(1);
-                                }
-                            };
-
-                            updateCounter();
-                        });
-                    }
-                });
-            }, {
-                threshold: 0.5
-            });
-
-            document.querySelectorAll(`.stat-item`).forEach(el => statObserver.observe(el));
-
-            const tabBtns = document.querySelectorAll(`.tab-btn`);
-            const branchContents = document.querySelectorAll(`.branch-content`);
-
-            tabBtns.forEach(btn => {
-                btn.addEventListener(`click`, () => {
-                    const targetTab = btn.getAttribute(`data-tab`);
-
-                    tabBtns.forEach(b => b.classList.remove(`active`));
-                    btn.classList.add(`active`);
-
-                    branchContents.forEach(content => {
-                        content.classList.remove(`active`);
-                        if (content.id === targetTab) {
-                            content.classList.add(`active`);
-                        }
+        // Smooth scroll for navigation links
+        document.querySelectorAll(`a[href^="#"]`).forEach(anchor => {
+            anchor.addEventListener(`click`, function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute(`href`));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: `smooth`,
+                        block: `start`
                     });
-                });
-            });
-
-            const carouselTrack = document.querySelector(`.carousel-track`);
-            const dots = document.querySelectorAll(`.dot`);
-            let currentIndex = 0;
-            let autoScrollInterval;
-
-            function updateCarousel() {
-                const cardWidth = 350 + 32;
-                carouselTrack.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle(`active`, index === currentIndex);
-                });
-            }
-
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % 6;
-                updateCarousel();
-            }
-
-            function startAutoScroll() {
-                autoScrollInterval = setInterval(nextSlide, 3000);
-            }
-
-            function stopAutoScroll() {
-                clearInterval(autoScrollInterval);
-            }
-
-            dots.forEach((dot, index) => {
-                dot.addEventListener(`click`, () => {
-                    currentIndex = index;
-                    updateCarousel();
-                    stopAutoScroll();
-                    startAutoScroll();
-                });
-            });
-
-            carouselTrack.addEventListener(`mouseenter`, stopAutoScroll);
-            carouselTrack.addEventListener(`mouseleave`, startAutoScroll);
-
-            startAutoScroll();
-
-            document.querySelectorAll(`a[href^="#"]`).forEach(anchor => {
-                anchor.addEventListener(`click`, function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute(`href`));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: `smooth`,
-                            block: `start`
-                        });
-                    }
-                });
+                }
             });
         });
-    </script>
     
+function redirectWhatsApp(branch) {
+    const MUMBAI_WA = '919152837001';
+    const PATNA_WA = '918521059240';
+
+    let number, message;
+
+    if (branch === 'mumbai') {
+        number = MUMBAI_WA;
+        message = "Hi, I want to book a seat at Chartered Studies Library - Mumbai Branch. Please share details.";
+    } else {
+        number = PATNA_WA;
+        message = "Hi, I want to book a seat at Chartered Studies Library - Patna Branch. Please share details.";
+    }
+
+    const encoded = encodeURIComponent(message);
+    window.open(`https://wa.me/${number}?text=${encoded}`, '_blank');
+
+    closeModal();
+}
+
+</script>
 
 </body></html>
